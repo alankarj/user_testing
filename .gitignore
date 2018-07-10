@@ -1,4 +1,12 @@
 .idea/
+data/.DS_Store
+data/agent_ack_utterances.txt
+data/agent_task_utterances.txt
+data/lexicons/
+data/scenario_excel.txt
+data/user_utterances.txt
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

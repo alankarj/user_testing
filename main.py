@@ -3,8 +3,10 @@ import numpy as np
 import argparse
 from src import config
 from src import user_simulator
+import random
 
 np.random.seed(0)
+random.seed(0)
 
 
 def verify_arguments(args):
@@ -27,6 +29,8 @@ def verify_arguments(args):
 def prepare_user_params(args):
     args.prob_user_profile = config.get_prob_user_profile()
     args.prob_user_behaviour = config.prob_user_behaviour
+    args.informable_slots = config.informable_slots
+    args.construct_ts = config.construct_ts
     return args
 
 
@@ -37,6 +41,10 @@ def parse_arguments():
                         default='scenario.txt', help='Name of file containing InMind scenario.')
     parser.add_argument('--data_folder_name', dest='data_folder_name', type=str,
                         default='data', help='Name of data folder.')
+    parser.add_argument('--lexicons_folder_name', dest='lexicons_folder_name', type=str,
+                        default='lexicons', help='Name of lexicons folder (inside data folder).')
+    parser.add_argument('--lexicon_files_suffix', dest='lexicon_files_suffix', type=str,
+                        default='2id.lexicon', help='Suffix for lexicon files.')
     parser.add_argument('--command_line_user', dest='command_line_user', type=int,
                         default=0, help='Whether to have a command line user simulator or not.')
     parser.add_argument('--num_dialogs', dest='num_dialogs', type=int,
@@ -63,6 +71,9 @@ def main():
     args = parse_arguments()
     verify_arguments(args)
     user_sim_params = prepare_user_params(args)
+
+    args.data_folder_path = os.path.join(os.getcwd(), args.data_folder_name)
+    args.lexicons_folder_path = os.path.join(args.data_folder_path, args.lexicons_folder_name)
 
     user_sim = user_simulator.UserSimulator(user_sim_params)
 

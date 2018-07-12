@@ -1,5 +1,0 @@
-agent-ts    agent-cs    user-ts user-cs
-greeting    NONE    greeting    NONE, HE
-greeting    SD  greeting    NONE, QESD
-greeting    QESD    greeting    SD
-greeting    PR  greeting    NONE, PR

@@ -102,20 +102,27 @@ def main():
     state_tracker = dialog_state_tracker.StateTracker(args)
     agent = rule_based_agent.RuleBasedAgent(args, agent_reasoner)
 
-    # for _ in range(args.num_dialogs):
-    #     user_sim.reset()
-    #     state = state_tracker.reset()
-    #     dialog_over = False
-    #     while not dialog_over:
-    #         agent_action = agent.next(state)
-    #         print("Agent action: ", agent_action)
-    #         state, dialog_over, full_dialog = state_tracker.step(agent_action=agent_action)
-    #         user_action = user_sim.next(state, agent_action)
-    #         print("User action: ", user_action)
-    #         state, dialog_over, full_dialog = state_tracker.step(user_action=user_action)
-    #         print("State: ", json.dumps(state, indent=2))
-    #         if dialog_over:
-    #             print("Full dialog: ", json.dumps(full_dialog, indent=2))
+    for _ in range(args.num_dialogs):
+        user_sim.reset()
+        state = state_tracker.reset()
+        dialog_over = False
+        while not dialog_over:
+            agent_action_dict = agent.next(state)
+            agent_action = agent_action_dict[config.ACTION_STR]
+            agent_ack_key = agent_action_dict[config.ACK_STR]
+            print("Agent action: ", agent_action)
+            print("Agent ack key: ", agent_ack_key)
+
+            if agent_ack_key is not None:
+                assert agent_ack_key in agent_ack_nlg_db
+
+            state, dialog_over, full_dialog = state_tracker.step(agent_action=agent_action)
+            user_action = user_sim.next(state, agent_action)
+            print("User action: ", user_action)
+            state, dialog_over, full_dialog = state_tracker.step(user_action=user_action)
+            # print("State: ", json.dumps(state, indent=2))
+            # if dialog_over:
+            #     print("Full dialog: ", json.dumps(full_dialog, indent=2))
 
 
 if __name__ == "__main__":

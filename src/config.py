@@ -11,6 +11,8 @@ NUM_FIELDS_NLG_AGENT = 5
 NUM_FIELDS_NLG_USER = 3
 
 # String constants
+ACTION_STR = 'ACTION'
+
 # User Profile Probability keys and values:
 CONV_GOAL_TYPE_STR = 'conv_goal_type'
 INITIATIVE_TYPE_STR = 'initiative'

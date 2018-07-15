@@ -17,7 +17,6 @@ def read_nlg_db(file_path, num_fields_keys):
                 second_field_list = line[1].split(config.OPTIONS_DELIMITER)
                 for sf in second_field_list:
                     key = (line[0], sf.strip(' ""'), *line[2:num_fields_keys])
-                    print(key)
                     value = line[num_fields_keys:]
                     assert len(header) == len(value)
                     nlg_db[key] = dict(zip(header, value))

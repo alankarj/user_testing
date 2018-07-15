@@ -1,0 +1,8 @@
+SARA:  Hi, how are you doing?
+USER: Hi, I'm doing well.
+SARA:  I'm SARA, your personal movie recommendation assistant. Are you in the mood for watching one?
+USER: I'm not interested.
+SARA:  Perhaps you haven't watched the good ones yet. Could you maybe tell me which was the last movie you enjoyed?
+USER: I don't remember.
+SARA:  You can always come back later when you want to discuss anything about movies! Bye.
+USER: Bye.

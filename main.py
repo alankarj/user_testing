@@ -3,11 +3,13 @@ import numpy as np
 import argparse
 import random
 import json
+import csv
+import pickle
 from src import config
 from src import user_simulator
 from src import dialog_state_tracker
 from src.agent import rule_based_agent
-from src.util import scenario_reader, nlg_db_reader
+from src.util import scenario_reader, nlg_db_reader, utterance_generator
 
 np.random.seed(0)
 random.seed(0)
@@ -45,6 +47,8 @@ def parse_arguments():
                         default='lexicons', help='Name of lexicons folder (inside data folder).')
     parser.add_argument('--nlg_db_folder_name', dest='nlg_db_folder_name', type=str,
                         default='nlg_db', help='Name of nlg_db folder (inside data folder).')
+    parser.add_argument('--synthetic_dialogs_folder_name', dest='synthetic_dialogs_folder_name', type=str,
+                        default='synthetic_dialogs', help='Name of synthetic dialogs folder (inside data folder).')
     parser.add_argument('--lexicon_files_suffix', dest='lexicon_files_suffix', type=str,
                         default='2id.lexicon', help='Suffix for lexicon files.')
     parser.add_argument('--command_line_user', dest='command_line_user', type=int,
@@ -86,6 +90,7 @@ def main():
     args.data_folder_path = os.path.join(os.getcwd(), args.data_folder_name)
     args.lexicons_folder_path = os.path.join(args.data_folder_path, args.lexicons_folder_name)
     args.nlg_db_folder_path = os.path.join(args.data_folder_path, args.nlg_db_folder_name)
+    args.synthetic_dialogs_folder_path = os.path.join(args.data_folder_path, args.synthetic_dialogs_folder_name)
 
     scenario_file_path = os.path.join(args.data_folder_path, args.scenario_file_name)
     agent_reasoner = scenario_reader.get_agent_scenario(scenario_file_path)
@@ -102,35 +107,56 @@ def main():
     state_tracker = dialog_state_tracker.StateTracker(args)
     agent = rule_based_agent.RuleBasedAgent(args, agent_reasoner)
 
+    nlg_options = list(list(agent_ack_nlg_db.values())[0].keys())[:5]
+    full_id_list = []
+
     for _ in range(args.num_dialogs):
+        nlg_id = random.sample(nlg_options, 1)[0]
         user_sim.reset()
         state = state_tracker.reset()
         dialog_over = False
+
+        utter_gen = utterance_generator.UtteranceGenerator(
+            agent_ack_nlg_db=agent_ack_nlg_db,
+            agent_task_nlg_db=agent_task_nlg_db,
+            user_task_nlg_db=user_task_nlg_db,
+            nlg_id=nlg_id,
+            nlg_options=nlg_options
+        )
+
+        file_id = str(random.randint(0, 100000))
+        full_id_list.append(file_id)
+        f = open(os.path.join(args.synthetic_dialogs_folder_path, file_id + '.txt'), 'w', encoding='UTF-8')
+
         while not dialog_over:
             agent_action_dict = agent.next(state)
             agent_action = agent_action_dict[config.ACTION_STR]
-            agent_ack_key = agent_action_dict[config.ACK_STR]
-            agent_task_key = agent_action_dict[config.OTHER_STR]
-            print("Agent action: ", agent_action)
-            print("Agent ack key: ", agent_ack_key)
-            print("Agent task key: ", agent_task_key)
-
-            assert agent_task_key in agent_task_nlg_db
-            if agent_ack_key is not None:
-                assert agent_ack_key in agent_ack_nlg_db
-
+            agent_utterance = utter_gen.get_agent_utterance(agent_action_dict)
             state, dialog_over, full_dialog = state_tracker.step(agent_action=agent_action)
+
             user_action_dict = user_sim.next(state, agent_action)
             user_action = user_action_dict[config.ACTION_STR]
-            user_task_key = user_action_dict[config.OTHER_STR]
-            print("User action: ", user_action)
-            print("User task key: ", user_task_key)
-            assert user_task_key in user_task_nlg_db
-
+            user_utterance = utter_gen.get_user_utterance(user_action_dict)
             state, dialog_over, full_dialog = state_tracker.step(user_action=user_action)
+
+            # print("Agent action: ", agent_action)
+            # print("Agent utterance: ", agent_utterance)
+            # print("User action: ", user_action)
+            # print("User utterance: ", user_utterance)
             # print("State: ", json.dumps(state, indent=2))
-            # if dialog_over:
-            #     print("Full dialog: ", json.dumps(full_dialog, indent=2))
+
+            if dialog_over:
+                with open(os.path.join(args.synthetic_dialogs_folder_path, file_id + '.pkl'), 'wb') as fp:
+                    pickle.dump(full_dialog, fp)
+                # print("Full dialog: ", json.dumps(full_dialog, indent=2))
+
+            f.write(config.AGENT_STR + ": " + agent_utterance + "\n")
+            f.write(config.USER_STR + ": " + user_utterance + "\n")
+        f.close()
+    print(full_id_list)
+    with open(os.path.join(args.synthetic_dialogs_folder_path, 'full_id_list' + '.csv'), 'w') as f:
+        wr = csv.writer(f, quoting=csv.QUOTE_ALL)
+        wr.writerow(full_id_list)
 
 
 if __name__ == "__main__":

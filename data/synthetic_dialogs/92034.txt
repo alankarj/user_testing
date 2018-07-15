@@ -1,0 +1,28 @@
+SARA:  Hi. How are you?
+USER: Hello, I'm doing well.
+SARA:  Can I help you find a movie to see?
+USER: Sure.
+SARA:  What was the last movie you saw and liked?
+USER: I just watched #LAST_MOVIE.
+SARA:  Why did you like that movie?
+USER: I loved the direction of the film.
+SARA:  So what is your favorite genre?
+USER: I like all movies.
+SARA:  Do you have a favorite director?
+USER: No, I don't know their names.
+SARA:  Do you have a favorite actor?
+USER: My favorite actor is #ACTOR.
+SARA:  Have you seen #MOVIE? I think you'd like it.
+USER: Cool.
+SARA:  Would you like another recommendation?
+USER: Yeah.
+SARA:  Have you seen #MOVIE? I think you'd like it.
+USER: Not interested.
+SARA:  What don't you like about it?
+USER: I want something lighter.
+SARA:  Would you like another recommendation?
+USER: No, thanks.
+SARA:  How did you like talking with me today?
+USER: Alright.
+SARA:  You can always come back later when you want to discuss anything about movies! Bye.
+USER: Bye.

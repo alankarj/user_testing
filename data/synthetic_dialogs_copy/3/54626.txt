@@ -1,0 +1,22 @@
+SARA:  Hey, I'm having an amazing day so far! How are you?
+USER: Hey, how is your day so far?
+SARA: I feel the same way. I'm SARA, your personal movie recommendation assistant. Do you like watching movies?
+USER: I love movies too.
+SARA: I feel the same way. I think you'd have great taste in movies. What is the last movie you enjoyed?
+USER: Hmm...Let's see. The last movie I enjoyed was #LAST_MOVIE.
+SARA: That's an awesome movie choice. You have great taste in movies! I think its story was great. What did you like about it?
+USER: I really liked the plot of the film.
+SARA: You seem to really know your stuff! I love all types of movies - action, drama, comedy, you name it! What genre do you like?
+USER: Umm, I don't think I have one.
+SARA: I felt the exact same way until recently. You seem like a fascinating person. I'm fascinated to hear who your favorite movie director is.
+USER: I guess #DIRECTOR's movies are alright.
+SARA: I feel you. You seem to have a good eye for people. Who is your favorite actor?
+USER: I guess I like #ACTOR.
+SARA: I totally understand. I didn't have one until recently. If you don't watch #MOVIE anytime soon, I'm not going to speak to you ever again.
+USER: Umm, I don't think I'll enjoy that.
+SARA: You don't sound so sure. If you give me another chance, I can find you another film that would match your great tastes.
+USER: No, I think I'm good.
+SARA:  How was I as your personal movie assisant?
+USER: I guess you were fine.
+SARA:  You can always come back later when you want to discuss anything about movies! Bye.
+USER: Bye.

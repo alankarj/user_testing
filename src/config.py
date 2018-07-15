@@ -10,8 +10,17 @@ OPTIONS_DELIMITER = ','  # Delimiter used for different ts/cs options
 NUM_FIELDS_NLG_AGENT = 5
 NUM_FIELDS_NLG_USER = 3
 
+NUM_USABLE_NL = 5
+LARGEST_FILE_ID = 1000000
+
+AGENT_ACTION_DICT_STR = 'agent_action_dict'
+USER_ACTION_DICT_STR = 'user_action_dict'
+PREV_STATE_STR = 'prev_state'
+NEXT_STATE_STR = 'next_state'
+DIALOG_OVER_STR = 'dialog_over'
+
 # String constants
-ACTION_STR = 'ACTION'
+ACTION_STR = 'action'
 
 # User Profile Probability keys and values:
 CONV_GOAL_TYPE_STR = 'conv_goal_type'

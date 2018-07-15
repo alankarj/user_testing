@@ -1,0 +1,24 @@
+SARA:  Hi! I've been feeling really tired because I've been working really hard today.
+USER: I'm doing well, thank you.
+SARA:  I would really love to help you find a movie. Do you like watching movies?
+USER: Yes!
+SARA: Great. You seem nice. I just saw Black Panther for the first time. What was the last movie you saw and liked?
+USER: I just watched #LAST_MOVIE.
+SARA: Great, I watched that one too. You've got good taste in movies, what did you like about it?
+USER: I loved the direction of the film.
+SARA: That's awesome. I'm a big Sci-Fi fan. What's your favorite genre?
+USER: I like all movies.
+SARA: It's alright not to have a strong genre preference, I'll still find you something! I'm a fan of Ava DuVernay and her recent work. Do you have a favorite director?
+USER: No, I don't know their names.
+SARA: That's okay. I'm always so impressed with Lupita Nyong'o and her acting. Do you have a favorite actor?
+USER: I don't have one.
+SARA: You're making my job a little harder, but I can still find you something. You've been helpful in all of your input. I think you'd like #MOVIE.
+USER: Could you recommend me a #GENRE movie instead?
+SARA:  I think you'll really like the movie #MOVIE. It's one of my favorites. What do you think?
+USER: Yes.
+SARA: Yay that's awesome! You're so great for accepting my recommendation. Would you like me to recommend you a different movie?
+USER: No, thank you.
+SARA:  Did you like my recommendations?
+USER: Yes.
+SARA:  Feel free to let me know if you ever need a movie recommendation! Bye.
+USER: Good bye.

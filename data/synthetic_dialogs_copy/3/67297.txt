@@ -1,0 +1,24 @@
+SARA:  Hi, you're looking sharp today.
+USER: I'm doing well, you seem nice.
+SARA: Thank you. I would really love to help you find a movie. Do you like watching movies?
+USER: Could you recommend me a movie with #ACTOR?
+SARA: Sure. You seem like you would have good taste. What was the last movie you saw and liked?
+USER: I just watched #LAST_MOVIE.
+SARA: Great, I watched that one too. You've got good taste in movies, what did you like about it?
+USER: I loved the direction of the film.
+SARA: That's awesome. I'm a big Sci-Fi fan. What's your favorite genre?
+USER: I guess I don't really have a preference.
+SARA: Okay, I have trouble picking a favorite because I like all kinds of movies! You're really cool. Who's your favorite director?
+USER: I don't think I really know any directors.
+SARA: Alright. I like so many that I can't pick a favorite. You've been helpful in all of your input. I think you'd like #MOVIE.
+USER: Which actors star in this film?
+SARA:  #ACTOR
+USER: Yes, absolutely. That would be great.
+SARA:  I think I have the perfect movie for your excellent tastes. You should try #MOVIE. What do you think?
+USER: You have such great recommendations SARA! I will definitely watch that movie.
+SARA: I'm so glad you accepted my recommendation. I've been trying to persuade people to watch that movie for ages! It's one of my favorites. I can find another movie to suit your excellent taste, if that's okay with you?
+USER: No, I think I'm good for now.
+SARA:  Did you like my recommendations?
+USER: I guess you were alright.
+SARA:  Feel free to let me know if you ever need a movie recommendation! Bye.
+USER: Good bye.

@@ -1,0 +1,24 @@
+SARA:  Hey, I'm having an amazing day so far! How are you?
+USER: Hi, I'm doing well.
+SARA:  I'm SARA and I'd love to share my passion for movies with you. Would you like to watch one?
+USER: Could you recommend me a movie with #DIRECTOR?
+SARA: Sure. You seem like you would have good taste. What was the last movie you saw and liked?
+USER: I just watched #LAST_MOVIE.
+SARA: Great, I watched that one too. You've got good taste in movies, what did you like about it?
+USER: I loved the direction of the film.
+SARA: Cool, I was pretty impressed with the acting. I'm enjoying talking about movies with you. What's your favorite genre?
+USER: I like all movies.
+SARA: It's alright not to have a strong genre preference, I'll still find you something! I'm always so impressed with Lupita Nyong'o and her acting. Do you have a favorite actor?
+USER: I don't have one.
+SARA: You're making my job a little harder, but I can still find you something. I've heard a lot of good things about #MOVIE, I think you'd like it.
+USER: Could you recommend me a movie with #ACTOR instead?
+SARA:  I think I have the perfect movie for your excellent tastes. You should try #MOVIE. What do you think?
+USER: I don't want to watch that movie.
+SARA:  I actually enjoyed it. Why don't you like it?
+USER: I have already seen it.
+SARA:  I have a few more that I think you'd like, do you want to hear about them?
+USER: No, thanks.
+SARA:  How did you like talking with me today?
+USER: Yes.
+SARA:  Feel free to let me know if you ever need a movie recommendation! Bye.
+USER: Good bye.

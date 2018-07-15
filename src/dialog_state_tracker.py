@@ -1,12 +1,13 @@
 from src import config
-
+import math
+import copy
 
 class StateTracker:
     def __init__(self, params):
         self.params = params
         self.state = {config.TASK_STATE_STR: None, config.SOCIAL_STATE_STR: None}
         self.dialog_over = None
-        self.full_dialog = {}
+        self.full_dialog = None
 
     def reset(self):
         task_state = {}
@@ -23,6 +24,7 @@ class StateTracker:
         task_state[config.AGENT_ACK_DF_STR] = config.BLANK_DF
         self.state[config.TASK_STATE_STR] = task_state
         self.dialog_over = False
+        self.full_dialog = {}
         return self.state
 
     def step(self, user_action=None, agent_action=None):
@@ -36,6 +38,7 @@ class StateTracker:
         :return: state: updated state dictionary
         """
         task_state = self.state[config.TASK_STATE_STR]
+        current_turn = math.floor(task_state[config.TURN_STR])
 
         if user_action is not None:
             intent, slot = config.parse_ts_string(user_action[config.TS_STR_INDEX_USER])
@@ -64,6 +67,12 @@ class StateTracker:
 
             if user_action[config.TS_STR_INDEX_USER] == config.NON_REQINF_USER_TS[-1]:
                 self.dialog_over = True
+
+            if current_turn not in self.full_dialog:
+                self.full_dialog[current_turn] = {}
+            self.full_dialog[current_turn][config.USER_STR] = {}
+            self.full_dialog[current_turn][config.USER_STR][config.PREV_STATE_STR] = copy.deepcopy(self.state)
+            self.full_dialog[current_turn][config.USER_STR][config.USER_DF_STR] = user_df
 
         if agent_action is not None:
             intent, slot = config.parse_ts_string(agent_action[config.TS_STR_INDEX_AGENT])
@@ -98,16 +107,22 @@ class StateTracker:
             task_state[config.AGENT_DF_STR] = agent_df
             task_state[config.AGENT_ACK_DF_STR] = agent_ack_df
 
+            if current_turn not in self.full_dialog:
+                self.full_dialog[current_turn] = {}
+            self.full_dialog[current_turn][config.AGENT_STR] = {}
+            self.full_dialog[current_turn][config.AGENT_STR][config.PREV_STATE_STR] = copy.deepcopy(self.state)
+            self.full_dialog[current_turn][config.AGENT_STR][config.AGENT_DF_STR] = agent_df
+
         task_state[config.TURN_STR] += 0.5
         self.state[config.TASK_STATE_STR] = task_state
 
-        if task_state[config.TURN_STR].is_integer():
-            self.full_dialog[int(task_state[config.TURN_STR])] = {
-                config.AGENT_STR: {
-                    config.ACK_STR: task_state[config.AGENT_ACK_DF_STR],
-                    config.OTHER_STR: task_state[config.AGENT_DF_STR]
-                },
-                config.USER_STR: task_state[config.USER_DF_STR]
-            }
+        key_str = ''
+        if user_action is not None:
+            key_str = config.USER_STR
+        if agent_action is not None:
+            key_str = config.AGENT_STR
+
+        self.full_dialog[current_turn][key_str][config.NEXT_STATE_STR] = copy.deepcopy(self.state)
+        self.full_dialog[current_turn][key_str][config.DIALOG_OVER_STR] = self.dialog_over
 
         return self.state, self.dialog_over, self.full_dialog

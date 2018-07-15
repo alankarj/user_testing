@@ -1,0 +1,22 @@
+SARA:  Hi, my name is SARA. It's my pleasure to meet you today.
+USER: Hello, I'm doing good. What about you?
+SARA:  I love watching films. Are you in the mood for watching one today?
+USER: Yes, for sure.
+SARA: I love watching them too. I bet you have great taste. Which was the last movie that you watched and liked?
+USER: Oh I watched #LAST_MOVIE.
+SARA: That's such a great choice. I loved the story of the film. What did you like about it?
+USER: I loved the actors in the film. They performed brilliantly.
+SARA: You have a great thought process. I love action films. What's your favorite genre?
+USER: My favorite genre is #GENRE.
+SARA: I like that genre as well. Might I ask what are your fine tastes in directors?
+USER: My favorite director is #DIRECTOR.
+SARA: You have an amazing choice. I love Tom Cruise. Who is your favorite actor?
+USER: My favorite actor is #ACTOR.
+SARA: Seriously who has that as a favorite? I thought we could be friends. I would love to watch #MOVIE. How about you?
+USER: Yes.
+SARA: Oh, so I was able to meet your exceptionally high standards, after all. Would it be okay if I recommend you another film to watch maybe?
+USER: No, thanks.
+SARA:  How did you like talking with me today?
+USER: Alright.
+SARA:  You can always come back later when you want to discuss anything about movies! Bye.
+USER: Bye.

@@ -1,0 +1,8 @@
+SARA:  Hi. How are you?
+USER: Hi, I guess I'm doing alright.
+SARA:  Can I help you find a movie to see?
+USER: No, I don't like movies.
+SARA:  Can I still maybe ask if you've seen any good movies recently?
+USER: Nope.
+SARA:  Feel free to talk to me when you need a movie recommendation, I'll be here. See you soon!
+USER: Bye!

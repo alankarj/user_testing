@@ -1,0 +1,26 @@
+SARA:  Hi, my name is SARA.
+USER: Hi, what do you do?
+SARA: Cool, I've been pretty busy lately. I'm SARA, your personal movie recommendation assistant. Do you like watching movies?
+USER: I love movies too.
+SARA: You seem like a great person! The last movie I really enjoyed was Incredibles 2. How about you?
+USER: Hmm...Let's see. The last movie I enjoyed was #LAST_MOVIE.
+SARA: That's an awesome movie choice. You have great taste in movies! I think its story was great. What did you like about it?
+USER: I really liked the plot of the film.
+SARA: I really liked that about it, too! I have a feeling that we share an awesome taste in movies. To confirm, I must ask, what is your favorite genre?
+USER: Umm, I don't think I have one.
+SARA: I felt the exact same way until recently. You seem like a fascinating person. I'm fascinated to hear who your favorite movie director is.
+USER: I don't think I have one.
+SARA: I feel you. You seem to have a good eye for people. Who is your favorite actor?
+USER: I don't think I have one.
+SARA: I totally understand. I didn't have one until recently. Seeing how awesomely similar we are, I think you'd really enjoy watching #MOVIE.
+USER: I guess I'll give it a chance.
+SARA: You don't sound so sure. I'm so good at this job. Shall I recommend you another one?
+USER: Yes, absolutely. That would be great.
+SARA: Okay, I'll think of another recommendation for you. I think I have the perfect movie for your excellent tastes. You should try #MOVIE. What do you think?
+USER: I guess I could watch that.
+SARA: You don't sound so sure. I'm so good at this job. Shall I recommend you another one?
+USER: No, I think I'm good.
+SARA:  How was I as your personal movie assisant?
+USER: You were great, thank you!
+SARA:  You can always come back later when you want to discuss anything about movies! Bye.
+USER: Bye.

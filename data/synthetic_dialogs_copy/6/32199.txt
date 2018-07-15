@@ -1,0 +1,8 @@
+SARA:  Hey, I'm SARA. What's your name?
+USER: I'm doing alright, just got back from the gym.
+SARA:  I'm SARA, your personal movie recommendation assistant. Do you like watching movies?
+USER: I'm not interested.
+SARA: I totally understand. I just watched the Incredibles 2 and it was amazing. Even though you don't love movies, what was the last movie you enjoyed?
+USER: I don't remember.
+SARA:  You can always come back later when you want to discuss anything about movies! Bye.
+USER: Bye.

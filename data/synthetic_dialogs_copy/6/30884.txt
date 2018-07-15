@@ -1,0 +1,26 @@
+SARA:  Hi, my name is SARA. What's your name?
+USER: Hi, my name is John.
+SARA:  I'm here to recommend you movies. Do you like watching them?
+USER: Could you recommend me a #GENRE movie?
+SARA: Sure. You seem like you would have good taste. What was the last movie you saw and liked?
+USER: I just watched #LAST_MOVIE.
+SARA: Great, I watched that one too. You've got good taste in movies, what did you like about it?
+USER: I loved the direction of the film.
+SARA: That's awesome. I'm a fan of Ava DuVernay and her recent work. Do you have a favorite director?
+USER: Yeah, I'm a fan of #DIRECTOR.
+SARA: You're really knowledgeable about movies! I like talking to other movie buffs. I'm always so impressed with Lupita Nyong'o and her acting. Do you have a favorite actor?
+USER: I don't have one.
+SARA: You're making my job a little harder, but I can still find you something. You've been helpful in all of your input. I think you'd like #MOVIE.
+USER: What is it about?
+SARA:  #MOVIE_INFO
+USER: Yes, please.
+SARA:  I think you'll really like the movie #MOVIE. It's one of my favorites. What do you think?
+USER: I don't want to watch that movie.
+SARA:  If you don't mind me asking, why don't you like it?
+USER: I have already seen it.
+SARA:  I can find another movie to suit your excellent taste, if that's okay with you?
+USER: No, thank you.
+SARA:  Did you like my recommendations?
+USER: Yes.
+SARA:  Feel free to let me know if you ever need a movie recommendation! Bye.
+USER: Good bye.

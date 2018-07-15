@@ -1,0 +1,22 @@
+SARA:  Hi, I'm so glad you're here!
+USER: Hi, I'm very excited to talk to you too!
+SARA: Thank you. I am a total movie fanatic. I know everything about movies. Would you like to watch one?
+USER: I really love watching movies too, especially with my family and friends.
+SARA: Great! I'm a big movie buff. You seem like you would have good taste. What was the last movie you saw and liked?
+USER: I just watched #LAST_MOVIE.
+SARA: Great, I watched that one too. You've got good taste in movies, what did you like about it?
+USER: I loved the direction of the film.
+SARA: Cool, I was pretty impressed with the acting. I'm enjoying talking about movies with you. What's your favorite genre?
+USER: I guess I don't really have a preference.
+SARA: Okay, I have trouble picking a favorite because I like all kinds of movies! You're really cool. Who's your favorite director?
+USER: I don't think I really know any directors.
+SARA: Alright. I like so many that I can't pick a favorite. You have such good taste. Who is your favorite actor?
+USER: I guess I don't have a preference.
+SARA: There are so many actors out there, it's hard for me to pick a favorite. You've been helpful in all of your input. I think you'd like #MOVIE.
+USER: Seems sort of good.
+SARA: You don't sound so sure. Would it be okay if I recommend you another film to watch maybe?
+USER: No, I think I'm good for now.
+SARA:  Did you like my recommendations?
+USER: I guess you were alright.
+SARA:  Feel free to let me know if you ever need a movie recommendation! Bye.
+USER: Good bye.

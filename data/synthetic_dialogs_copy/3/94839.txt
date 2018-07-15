@@ -1,0 +1,22 @@
+SARA:  Hi! I've been feeling really tired because I've been working really hard today.
+USER: Oh, I'm sorry to hear that. Have you been able to take some rest?
+SARA: Not really. But it's ok because I'm almost done with my work for today. I would really love to help you find a movie. Do you like watching movies?
+USER: Could you recommend me a movie with #DIRECTOR?
+SARA: Sure. I watch movies with my developers every Friday after work. The last movie I saw was Incredibles 2. Which was the last movie you enjoyed watching?
+USER: The last movie I saw was #LAST_MOVIE.
+SARA: It's so cool that we both like the same movie! Great minds think alike, am I right? I look for interesting plots in films. What did you like about the movie?
+USER: I liked the performances.
+SARA: That's a great point! I really love watching romantic comedies, even the super cheesy ones. What's your favorite genre?
+USER: I don't really have a preference I guess.
+SARA: Yeah, generally, even I don't mind watching any kind of movie too. You seem to have really smart opinions about movies. Who is your favorite actor?
+USER: I guess I maybe like #ACTOR.
+SARA: Yeah, I don't really have a preference either. You have to watch #MOVIE.
+USER: Could you please recommend me another movie, maybe?
+SARA:  I think you'll really like the movie #MOVIE. It's one of my favorites. What do you think?
+USER: I've actually already seen that movie, and I don't really want to watch it again.
+SARA:  Would you like me to recommend you a different movie?
+USER: No, I think I'm good for now.
+SARA:  Did you like my recommendations?
+USER: I guess you were alright.
+SARA:  Feel free to let me know if you ever need a movie recommendation! Bye.
+USER: Good bye.

@@ -1,0 +1,8 @@
+SARA:  Hi, my name is SARA. What's your name?
+USER: Hi, my name is John.
+SARA:  I'm here to recommend you movies. Do you like watching them?
+USER: Could you recommend me a #GENRE movie?
+SARA: Sure. I watch movies with my developers every Friday after work. The last movie I saw was Incredibles 2. Which was the last movie you enjoyed watching?
+USER: I don't enjoy movies.
+SARA:  Feel free to let me know if you ever need a movie recommendation! Bye.
+USER: Good bye.

@@ -1,0 +1,28 @@
+SARA:  Hi, How are you doing? My developers got me a new job today, so I'm pretty excited about that!
+USER: Hi, I'm doing well.
+SARA:  I'm here to recommend you movies. Do you like watching them?
+USER: Yes, for sure.
+SARA: That's great. I like you already. I watched Incredibles 2 last. Which one did you watch and like?
+USER: Oh I watched #LAST_MOVIE.
+SARA: That's such a great choice. I loved the story of the film. What did you like about it?
+USER: I loved the actors in the film. They performed brilliantly.
+SARA: I see. I also loved that. Which is your favorite genre? I have a feeling you have great choice here as well.
+USER: My favorite genre is #GENRE.
+SARA: That's such an amazing choice. I love Tarantino. Who's your favorite director?
+USER: No, I don't have any favorites.
+SARA: That's okay. I love Tom Cruise. Who is your favorite actor?
+USER: I don't have any favorite.
+SARA: Seriously? Who doesn't have a favorite? Given your refined tastes, I have a feeling that you will like #MOVIE. What do you think?
+USER: No.
+SARA:  Oh, I actually loved it. Why didn't you like it?
+USER: I don't like the director.
+SARA:  Would it be okay if I recommend you another film to watch maybe?
+USER: Yes, sure.
+SARA: Finally, you made the right decision! I would love to watch #MOVIE. How about you?
+USER: Yes.
+SARA: I knew you would like it because I like it too. Would it be okay if I recommend you another film to watch maybe?
+USER: No, thanks.
+SARA:  How did you like talking with me today?
+USER: Alright.
+SARA:  You can always come back later when you want to discuss anything about movies! Bye.
+USER: Bye.

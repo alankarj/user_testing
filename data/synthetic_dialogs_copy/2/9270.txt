@@ -1,0 +1,24 @@
+SARA:  Hi, how are you doing?
+USER: Hey, I'm alright, I guess.
+SARA:  I'm SARA, your personal movie recommendation assistant. Are you in the mood for watching one?
+USER: Could you recommend me a movie with #ACTOR?
+SARA: Sure. What was the last movie that you enjoyed watching?
+USER: The last movie I saw was #LAST_MOVIE.
+SARA: Okay. What else did you like about the movie?
+USER: I liked the performances.
+SARA: That's cool. What is your favorite movie genre?
+USER: I guess I like #GENRE movies.
+SARA: Yeah, generally, even I don't mind watching any kind of movie too. Who is your favorite director?
+USER: I don't think I really have a preference.
+SARA: Yeah, I honestly don't know too many movie directors myself. Do you think you'll like #MOVIE?
+USER: Hmm…maybe…do you think you could tell me more about it?
+SARA:  #MOVIE_INFO
+USER: Yes, absolutely. That would be great.
+SARA:  Do you think you'll like #MOVIE?
+USER: I don't think I would like that movie.
+SARA: You don't sound so sure. Shall I recommend you another movie?
+USER: No, I think I'm good.
+SARA:  How was I as your personal movie assisant?
+USER: I guess you were fine.
+SARA:  You can always come back later when you want to discuss anything about movies! Bye.
+USER: Bye.

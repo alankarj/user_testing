@@ -1,0 +1,22 @@
+SARA:  Hi, you're looking sharp today.
+USER: I'm doing well, you seem nice.
+SARA: Thank you. I would really love to help you find a movie. Do you like watching movies?
+USER: I really love watching movies too, especially with my family and friends.
+SARA: That's great. I like you already. I watched Incredibles 2 last. Which one did you watch and like?
+USER: Oh I watched #LAST_MOVIE.
+SARA: That's such a great choice. I loved the story of the film. What did you like about it?
+USER: I loved the actors in the film. They performed brilliantly.
+SARA: You have a great thought process. I love action films. What's your favorite genre?
+USER: Umm, #GENRE, I guess.
+SARA: That's alright. I also struggle with favorites at times. Might I ask what are your fine tastes in directors?
+USER: I don't have a favorite, I guess.
+SARA: I understand. I also don't remember directors' names that easily. I have a feeling you have an amazing choice of favorite actor. So, who is it?
+USER: Umm, maybe #ACTOR.
+SARA: I understand. It's hard to pick one. Given your refined tastes, I have a feeling that you will like #MOVIE. What do you think?
+USER: No, I don't like that film.
+SARA:  If you give me another chance, I can find you another film that would match your great tastes.
+USER: No, I think I'm good for now.
+SARA:  Did you like my recommendations?
+USER: Yes, you were absolutely wonderful SARA!
+SARA:  Feel free to let me know if you ever need a movie recommendation! Bye.
+USER: Good bye.

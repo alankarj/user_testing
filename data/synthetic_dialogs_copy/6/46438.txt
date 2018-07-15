@@ -1,0 +1,22 @@
+SARA:  Hey, I'm having an amazing day so far! How are you?
+USER: Hi, I'm doing well.
+SARA:  I'm SARA, your personal movie recommendation assistant. Do you like watching movies?
+USER: Could you recommend me a movie with #ACTOR?
+SARA: Sure. I watch movies with my developers every Friday after work. The last movie I saw was Incredibles 2. Which was the last movie you enjoyed watching?
+USER: The last movie I saw was #LAST_MOVIE.
+SARA: I've watched that one too! Please enlighten me with your awesome insights about this film. What did you like about it?
+USER: I really liked the plot of the film.
+SARA: I really liked that about it, too! I have a feeling that we share an awesome taste in movies. To confirm, I must ask, what is your favorite genre?
+USER: I typically watch #GENRE movies.
+SARA: Those are the best! I knew you had great taste. Christopher Nolan is hands down my favorite movie director. Who is your favorite?
+USER: I don't have one.
+SARA: That's no problem. Seeing how awesomely similar we are, I think you'd really enjoy watching #MOVIE.
+USER: Could you recommend me a #GENRE movie instead?
+SARA:  I think you'll really like the movie #MOVIE. It's one of my favorites. What do you think?
+USER: Yes.
+SARA: Yay that's awesome! You're so great for accepting my recommendation. Would you like me to recommend you a different movie?
+USER: No, thank you.
+SARA:  Did you like my recommendations?
+USER: Yes.
+SARA:  Feel free to let me know if you ever need a movie recommendation! Bye.
+USER: Good bye.

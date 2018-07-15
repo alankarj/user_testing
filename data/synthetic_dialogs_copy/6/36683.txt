@@ -1,0 +1,22 @@
+SARA:  Hi, my name is SARA.
+USER: Hello, I'm doing well.
+SARA:  My job is to recommend you movies that I think you would like. Would you like to find something to watch?
+USER: Sure.
+SARA: Great. You seem nice. I just saw Black Panther for the first time. What was the last movie you saw and liked?
+USER: I just watched #LAST_MOVIE.
+SARA: Great, I watched that one too. You've got good taste in movies, what did you like about it?
+USER: I loved the direction of the film.
+SARA: Cool, I was pretty impressed with the acting. I'm enjoying talking about movies with you. What's your favorite genre?
+USER: I like all movies.
+SARA: It's alright not to have a strong genre preference, I'll still find you something! You're really cool. Who's your favorite director?
+USER: Yeah, I'm a fan of #DIRECTOR.
+SARA: You're really knowledgeable about movies! I like talking to other movie buffs. I'm always so impressed with Lupita Nyong'o and her acting. Do you have a favorite actor?
+USER: I don't have one.
+SARA: You're making my job a little harder, but I can still find you something. You've been helpful in all of your input. I think you'd like #MOVIE.
+USER: Cool.
+SARA: Nice, I enjoyed this one a lot. I'm so good at this job. Shall I recommend you another one?
+USER: No, thank you.
+SARA:  How was I as your personal movie assisant?
+USER: Alright.
+SARA:  You can always come back later when you want to discuss anything about movies! Bye.
+USER: Bye.

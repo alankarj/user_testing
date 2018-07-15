@@ -1,0 +1,26 @@
+SARA:  Hi, I'm so glad to meet you. How are you doing?
+USER: Hi, I'm doing well.
+SARA:  Before this, I was in real estate. Now, I'm here to recommed movies to you. So are you in the mood for one?
+USER: Could you recommend me a #GENRE movie?
+SARA: Sure. I watch movies with my developers every Friday after work. The last movie I saw was Incredibles 2. Which was the last movie you enjoyed watching?
+USER: The last movie I saw was #LAST_MOVIE.
+SARA: Great, I watched that one too. You've got good taste in movies, what did you like about it?
+USER: I loved the direction of the film.
+SARA: Cool, I was pretty impressed with the acting. You're really cool. Who's your favorite director?
+USER: No, I don't know their names.
+SARA: That's okay. You have such good taste. Who is your favorite actor?
+USER: My favorite actor is #ACTOR.
+SARA: Cool, I think #ACTOR is really talented. You've been helpful in all of your input. I think you'd like #MOVIE.
+USER: Which actors star in this film?
+SARA:  #ACTOR
+USER: Yes, please.
+SARA:  I think you'll really like the movie #MOVIE. It's one of my favorites. What do you think?
+USER: I don't want to watch that movie.
+SARA:  If you don't mind me asking, why don't you like it?
+USER: I have already seen it.
+SARA:  I can find another movie to suit your excellent taste, if that's okay with you?
+USER: No, thank you.
+SARA:  Did you like my recommendations?
+USER: Yes.
+SARA:  Feel free to let me know if you ever need a movie recommendation! Bye.
+USER: Good bye.

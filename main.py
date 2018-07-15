@@ -2,6 +2,7 @@ import os
 import numpy as np
 import argparse
 import random
+import json
 from src import config
 from src import user_simulator
 from src import dialog_state_tracker
@@ -10,7 +11,7 @@ from src.agent import rule_based_agent
 np.random.seed(0)
 random.seed(0)
 
-AFFIRM_NEGATE_KEY = 0  # Key to uniquely determine context for affirm/negate
+CONTEXT_KEY = 0  # Key to uniquely determine context for affirm/negate
 AGENT_KEY = 1  # Column ID of the key for programmed agent reasoner (prev_user_ts)
 USER_KEY = 3  # Column ID of the key for user simulator reasoner (agent_ts)
 NUM_FIELDS_KEYS = 2  # Number of fields for agent/user simulator reasoner keys (ts, cs)
@@ -58,7 +59,7 @@ def parse_arguments():
     parser.add_argument('--agent_type', dest='agent_type', type=str,
                         default='rule_based', help='Type of agent: rule_based or rl.')
     parser.add_argument('--agent_social_type', dest='agent_social_type', type=str,
-                        default='social', help='Type of agent: social or unsocial (NONE CS).')
+                        default='unsocial', help='Type of agent: social or unsocial (NONE CS).')
 
     # The following arguments determine the user profile for command line interaction.
     parser.add_argument('--conv_goal_type', dest='conv_goal_type', type=str,
@@ -89,6 +90,9 @@ def main():
         all_lines = f.readlines()
 
         agent_reasoner = {}
+        pass
+        agent_reasoner[config.ACK_STR] = {}
+        agent_reasoner[config.OTHER_STR] = {}
         user_simulator_reasoner = {}
 
         for i, line in enumerate(all_lines):
@@ -100,46 +104,75 @@ def main():
                 conv_strategies = line[AGENT_KEY + NUM_FIELDS_KEYS - 1].split(OPTIONS_DELIMITER)
 
                 for ts in task_strategies:
+                    ts = ts.strip(' ""')
                     for cs in conv_strategies:
-                        if ts in [config.AFFIRM_STR, ts == config.NEGATE_STR]:
-                            affirm_negate_context = line[AFFIRM_NEGATE_KEY]
-                            pre_condition_key = (affirm_negate_context, ts.strip(' '), cs.strip(' '))
-                        else:
-                            pre_condition_key = (ts.strip(' '), cs.strip(' '))
+                        cs = cs.strip(' ""')
 
-                        if pre_condition_key not in agent_reasoner:
-                            agent_reasoner[pre_condition_key] = {}
+                        context = line[CONTEXT_KEY].strip(' ""')
+                        pre_condition_key = (context, ts, cs)
 
                         post_condition_key = line[AGENT_KEY + NUM_FIELDS_KEYS]
-                        if post_condition_key not in agent_reasoner[pre_condition_key]:
-                            agent_reasoner[pre_condition_key][post_condition_key] = []
-                        agent_reasoner[pre_condition_key][post_condition_key].append(line[AGENT_KEY + 2 * NUM_FIELDS_KEYS - 1])
+                        if post_condition_key == config.ACK_STR:
+                            reasoner_key = config.ACK_STR
+                        else:
+                            reasoner_key = config.OTHER_STR
+
+                        if pre_condition_key not in agent_reasoner[reasoner_key]:
+                            agent_reasoner[reasoner_key][pre_condition_key] = {}
+
+                        if post_condition_key not in agent_reasoner[reasoner_key][pre_condition_key]:
+                            agent_reasoner[reasoner_key][pre_condition_key][post_condition_key] = []
+
+                        agent_conv_strategies = line[AGENT_KEY + 2 * NUM_FIELDS_KEYS - 1].split(OPTIONS_DELIMITER)
+                        for acs in agent_conv_strategies:
+                            agent_reasoner[reasoner_key][pre_condition_key][post_condition_key].append(acs.strip(' ""'))
 
                 # Construct user reasoner.
-                pre_condition_key = (line[USER_KEY], line[USER_KEY + NUM_FIELDS_KEYS - 1])
-                if pre_condition_key not in user_simulator_reasoner:
-                    user_simulator_reasoner[pre_condition_key] = {}
-
-                for j in range(USER_KEY + NUM_FIELDS_KEYS, len(line), NUM_FIELDS_KEYS):
-                    post_condition_key = line[j]
-                    if post_condition_key not in user_simulator_reasoner[pre_condition_key]:
-                        user_simulator_reasoner[pre_condition_key][post_condition_key] = []
-
-                    conv_strategies = line[j+1].split(OPTIONS_DELIMITER)
+                conv_strategies = line[USER_KEY + NUM_FIELDS_KEYS - 1].split(OPTIONS_DELIMITER)
+                ts = line[USER_KEY].strip(' ""')
+                if ts != config.ACK_STR:
                     for cs in conv_strategies:
-                        user_simulator_reasoner[pre_condition_key][post_condition_key].append(cs.strip(' '))
+                        cs = cs.strip(' ""')
+
+                        pre_condition_key = (ts, cs)
+
+                        if pre_condition_key not in user_simulator_reasoner:
+                            user_simulator_reasoner[pre_condition_key] = {}
+
+                        for j in range(USER_KEY + NUM_FIELDS_KEYS, len(line), NUM_FIELDS_KEYS):
+                            post_condition_key = line[j].strip(' ""')
+                            if post_condition_key not in user_simulator_reasoner[pre_condition_key]:
+                                user_simulator_reasoner[pre_condition_key][post_condition_key] = []
+
+                            user_conv_strategies = line[j+1].split(OPTIONS_DELIMITER)
+                            for ucs in user_conv_strategies:
+                                ucs = ucs.strip(' ""')
+                                user_simulator_reasoner[pre_condition_key][post_condition_key].append(ucs)
 
     user_sim = user_simulator.UserSimulator(args, user_simulator_reasoner)
     state_tracker = dialog_state_tracker.StateTracker(args)
     agent = rule_based_agent.RuleBasedAgent(args, agent_reasoner)
 
+    print(agent_reasoner[config.ACK_STR])
+    print()
+    print(agent_reasoner[config.OTHER_STR])
+
+    # print(user_simulator_reasoner)
+
     for _ in range(args.num_dialogs):
         user_sim.reset()
         state = state_tracker.reset()
-
-        agent_action = agent.next(state)
-        # user_action = user_sim.next(state, agent_action)
-        # print(user_action)
+        dialog_over = False
+        while not dialog_over:
+            agent_action = agent.next(state)
+            print("Agent action: ", agent_action)
+            state, dialog_over, full_dialog = state_tracker.step(agent_action=agent_action)
+            user_action = user_sim.next(state, agent_action)
+            print("User action: ", user_action)
+            state, dialog_over, full_dialog = state_tracker.step(user_action=user_action)
+            print("State: ", json.dumps(state, indent=2))
+            if dialog_over:
+                print("Full dialog: ", json.dumps(full_dialog, indent=2))
 
 
 if __name__ == "__main__":

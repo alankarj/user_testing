@@ -1,10 +1,6 @@
 .idea/
 data/.DS_Store
-data/agent_ack_utterances.txt
-data/agent_task_utterances.txt
-data/lexicons/
-data/scenario_excel.txt
-data/user_utterances.txt
+data/synthetic_dialogs
 
 
 # Byte-compiled / optimized / DLL files

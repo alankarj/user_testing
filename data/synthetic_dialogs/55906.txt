@@ -1,8 +1,0 @@
-SARA:  Hi. How are you?
-USER: Hello, I'm doing well.
-SARA:  Can I help you find a movie to see?
-USER: Could you recommend me a movie with #ACTOR?
-SARA:  What was the last movie that you enjoyed watching?
-USER: I don't enjoy movies.
-SARA:  Okay, no problem. Feel free to let me know if you ever need a movie recommendation! Bye.
-USER: Good bye.

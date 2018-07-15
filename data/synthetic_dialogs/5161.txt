@@ -1,8 +1,0 @@
-SARA:  Hi. How are you doing today?
-USER: Hi, I'm doing well.
-SARA:  So are you in the mood for a movie today?
-USER: Could you recommend me a movie with #DIRECTOR?
-SARA:  What was the last movie that you enjoyed watching?
-USER: I don't enjoy movies.
-SARA:  Okay, no problem. Feel free to let me know if you ever need a movie recommendation! Bye.
-USER: Good bye.

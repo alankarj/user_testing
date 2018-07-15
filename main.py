@@ -110,9 +110,12 @@ def main():
             agent_action_dict = agent.next(state)
             agent_action = agent_action_dict[config.ACTION_STR]
             agent_ack_key = agent_action_dict[config.ACK_STR]
+            agent_task_key = agent_action_dict[config.OTHER_STR]
             print("Agent action: ", agent_action)
             print("Agent ack key: ", agent_ack_key)
+            print("Agent task key: ", agent_task_key)
 
+            assert agent_task_key in agent_task_nlg_db
             if agent_ack_key is not None:
                 assert agent_ack_key in agent_ack_nlg_db
 

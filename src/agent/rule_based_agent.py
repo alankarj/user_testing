@@ -54,6 +54,8 @@ class RuleBasedAgent:
         ack_key_nlg = None
         if agent_ts_string_ack != '':
             ack_key_nlg = (*ack_key, agent_ts_string_ack, agent_cs_ack)
+        if agent_ts_string_other == config.AGENT_TS_STRINGS[3]:
+            ts_key = ('', '', '')
         ts_key_nlg = (*ts_key, agent_ts_string_other, agent_cs_other)
 
         return {config.ACTION_STR: (agent_ts_string_ack, agent_cs_ack, agent_ts_string_other, agent_cs_other, value),

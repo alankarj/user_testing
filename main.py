@@ -120,8 +120,13 @@ def main():
                 assert agent_ack_key in agent_ack_nlg_db
 
             state, dialog_over, full_dialog = state_tracker.step(agent_action=agent_action)
-            user_action = user_sim.next(state, agent_action)
+            user_action_dict = user_sim.next(state, agent_action)
+            user_action = user_action_dict[config.ACTION_STR]
+            user_task_key = user_action_dict[config.OTHER_STR]
             print("User action: ", user_action)
+            print("User task key: ", user_task_key)
+            assert user_task_key in user_task_nlg_db
+
             state, dialog_over, full_dialog = state_tracker.step(user_action=user_action)
             # print("State: ", json.dumps(state, indent=2))
             # if dialog_over:

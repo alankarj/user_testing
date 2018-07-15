@@ -74,7 +74,8 @@ class UserSimulator:
         user_ts_string, value = self.task_reasoner(state, agent_action)
         cs_list = self.reasoner[agent_action[config.TS_STR_INDEX_AGENT:config.SLOT_VALUE_INDEX_AGENT]][user_ts_string]
         cs = self.social_reasoner(cs_list)
-        return user_ts_string, cs, value
+        ts_key = (agent_action[config.TS_STR_INDEX_AGENT], user_ts_string, cs)
+        return {config.ACTION_STR: (user_ts_string, cs, value), config.OTHER_STR: ts_key}
 
     def task_reasoner(self, state, agent_action):
         """

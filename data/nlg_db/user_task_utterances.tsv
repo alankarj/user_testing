@@ -38,8 +38,8 @@ inform(movie)	request(movie_info)	NONE	What is it about?	Can you tell me more ab
 inform(movie)	request(movie_info)	HE	Hmm…maybe…do you think you could tell me more about it?	Umm, I think I'd like to know more about #MOVIE.	Could you maybe tell me what is it about?	I don't think I've heard of it. Could you maybe tell me more about it?	Would you mind giving me more information about this movie?	Could you maybe tell me what this is about?	I'm not sure, maybe you can tell me more about it?	
 inform(movie)	request(genre)	NONE	What kind of film is it?							
 inform(movie)	request(actor)	NONE	Which actors star in this film?							
-inform(movie)	request(another_one)	NONE	Please recommend me another movie instead.							
-inform(movie)	request(another_one)	HE	Could you please recommend me another movie, maybe?							
+inform(movie)	inform(another_one)	NONE	Please recommend me another movie instead.							
+inform(movie)	inform(another_one)	HE	Could you please recommend me another movie, maybe?							
 inform(movie)	inform(genre)	NONE	Could you recommend me a #GENRE movie instead?							
 inform(movie)	inform(genre)	HE	Could you please recommend me a #GENRE movie, maybe?							
 inform(movie)	inform(actor)	NONE	Could you recommend me a movie with #ACTOR instead?							

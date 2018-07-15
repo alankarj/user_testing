@@ -1,0 +1,68 @@
+agent_ts	ts	cs	1	2	3	4	5	6	7	8
+greeting	greeting	NONE	I'm doing well, thank you.	Hi, I'm doing well.	Hello, I'm doing good. What about you?	Hello, I'm doing well.	Hi, I'm doing well.	Hi!	Hello	Hi Sara
+greeting	greeting	HE	I'm alright, I guess.	Hey, I'm alright, I guess.	Umm, I'm doing okay, I guess.	Hi, I guess I'm doing alright.	I'm fine, I guess.	Umm, hi.		Umm hi I guess
+greeting	greeting	QESD	Oh, I'm sorry to hear that. Have you been able to take some rest?	Hey, how is your day so far?	Hey, what happened?	Hi, what do you do?	Oh! What did you do before?			
+greeting	greeting	SD	I had a really good day at work today, because I was promoted, so all in all, I've been feeling pretty good about myself.	Hey, I'm not doing so well.	Hi, my name is John.	I'm doing alright, just got back from the gym.	Hi SARA, my name is Florian.	My name is Space.	My name is Katie.	
+greeting	greeting	PR	It's so great to meet you too! You seem to be extremely intelligent.	Hi, I'm very excited to talk to you too!	Hey, it's great to meet you too.	I'm doing well, you seem nice.	Hi, nice to meet you too.	Oh. That's a great name!	So do you!	I bet you know more.
+introduce	affirm	NONE	Yes!	Cool.	Yes, for sure.	Sure.	Yes!	Absolutely.	Sure.	Okay.
+introduce	affirm	SD	I really love watching movies too, especially with my family and friends.	I love movies too.	Yes, I love watching films.	Yes, I've been looking for a good movie.	Definitely, I love watching movies.		I love movies too!	Sounds great, I like watching movies too.
+introduce	negate	NONE	I don't want a movie recommendation right now.	I'm not interested.	No, I'm not in the mood.	No, thanks.	No, thanks.	Naah, I am not in the mood to watch movies today.	No.	I don't know.
+introduce	negate	SD	I actually don't like movies.	I'm not a huge fan of movies.	No, I don't like watching films.	No, I don't like movies.	Nope, I hate watching movies.		No, I hate movies.	I hate movies.
+introduce	inform(actor)	NONE	Could you recommend me a movie with #ACTOR?							
+introduce	inform(genre)	NONE	Could you recommend me a #GENRE movie?							
+introduce	inform(director)	NONE	Could you recommend me a movie with #DIRECTOR?							
+request(last_movie)	inform(last_movie)	SD	The last movie I saw was #LAST_MOVIE.	Hmm...Let's see. The last movie I enjoyed was #LAST_MOVIE.	Oh I watched #LAST_MOVIE.	I just watched #LAST_MOVIE.	I really liked #LAST_MOVIE.	Oh, the last movie I watched was #LAST_MOVIE and I really liked it.	I saw #LAST_MOVIE.	I watched #LAST_MOVIE.
+request(last_movie)	negate	NONE	I don't enjoy movies.	I don't remember.	No, sorry.	Nope.	I did not watch any movie recently.	I haven't watched anything in a long time.	I don't remember.	No.
+bye	bye	NONE	Good bye.	Bye.	See you.	Bye!	Good bye.	Good bye.	Good bye.	Good bye.
+request(reason_like)	inform(reason_like)	SD	I liked the performances.	I really liked the plot of the film.	I loved the actors in the film. They performed brilliantly.	I loved the direction of the film.	I loved the ending of the film.	It was quite a smart film. 	It was funny.	It was really intense.
+request(genre)	inform(genre)	SD	I love #GENRE movies because I used to watch a lot of them with my family.	I typically watch #GENRE movies.	My favorite genre is #GENRE.	I like #GENRE.	That's a good question. I'm probably more into #GENRE movies.		I like #GENRE.	#GENRE.
+request(genre)	inform(genre)	HE	I guess I like #GENRE movies.	I think, maybe #GENRE movies?	Umm, #GENRE, I guess.	I guess <GENRE> and stuff.	I guess I like #GENRE.		I guess #GENRE.	Umm, I guess I prefer #GENRE.
+request(genre)	negate	SD	I don't really have a preference. I've always loved all kinds of movies.	I don't have a favorite genre.	No, I don't have a preference.	I like all movies.	I don't have any favorite genre.		Honestly, I don't know.	
+request(genre)	negate	HE	I don't really have a preference I guess.	Umm, I don't think I have one.	Umm, I don't know, I don't have a favorite genre I guess.	I guess I don't really have a preference.	I don't think I have any favorite genre.		I guess I don't really know.	
+request(director)	inform(director)	SD	My favorite director is #DIRECTOR.	I like #DIRECTOR's movies.	My favorite director is #DIRECTOR.	Yeah, I'm a fan of #DIRECTOR.	I'm a huge fan of #DIRECTOR.	My favorite director is #DIRECTOR.		
+request(director)	inform(director)	HE	I guess it's #DIRECTOR.	I guess #DIRECTOR's movies are alright.	Maybe, #DIRECTOR.	I sort of like #DIRECTOR.	I don't know…#DIRECTOR, maybe?	I don't know maybe #DIRECTOR.		
+request(director)	negate	SD	To be honest, I don't really know any movie directors.	I don't have one.	No, I don't have any favorites.	No, I don't know their names.	I don't have any.	I don't really know any directors.		
+request(director)	negate	HE	I don't think I really have a preference.	I don't think I have one.	I don't have a favorite, I guess.	I don't think I really know any directors.	I don't think I have any favorite director.	Umm, I don't really know.		
+request(actor)	inform(actor)	SD	#ACTOR is super talented.	I like #ACTOR.	My favorite actor is #ACTOR.	My favorite actor is #ACTOR.	I like #ACTOR.	I really like #ACTOR.	My favorite actor is #ACTOR.	
+request(actor)	inform(actor)	HE	I guess I maybe like #ACTOR.	I guess I like #ACTOR.	Umm, maybe #ACTOR.	I kind of like #ACTOR.	Maybe #ACTOR?	I guess I kind of like #ACTOR.	Maybe it's #ACTOR.	
+request(actor)	negate	SD	I actually don't have a preference for actors.	I don't have a favorite.	I don't have any favorite.	I don't have one.	I don't have any favorite actor.	I don't have a favorite actor.	I'm not sure.	
+request(actor)	negate	HE	I guess I don't really have a preference.	I don't think I have one.	I don't think I have any favorite I guess.	I guess I don't have a preference.	I'm not sure I have a favorite actor.	I don't really have a favorite actor, I guess.	I guess I don't have one.	
+inform(movie)	affirm	NONE	Yes.	Sounds great.	Yes.	Cool.	Yup, that's a good one.	Yes.	Definitely.	
+inform(movie)	affirm	HE	I guess I could watch that.	I guess I'll give it a chance.	I guess.	Seems sort of good.	I don't know, sounds good I guess.	I guess so.	Maybe I will like it.	
+inform(movie)	affirm	PR	You have such great recommendations SARA! I will definitely watch that movie.	Wow, that's an awesome suggestion. Thanks!	Yes, that's a great recommendation.	Wow, you made a great movie recommendation..	Wow, that's a great recommendation, thank you very much!	Wow SARA you're so intelligent, I'll definitely watch this movie.	That's a good recommendation, I think I will enjoy it.	
+inform(movie)	affirm	SD	I've actually already watched that movie. It was really great.	I think I'll really enjoy that.	Yes, I have already seen it.			Yeah I've already seen this movie but I'd love to see it again.	That's my favorite movie too.	
+inform(movie)	negate	NONE	I don't want to watch that movie.	No.	No.	Not interested.	Nope.	No.	No.	
+inform(movie)	negate	HE	I don't think I would like that movie.	Umm, I don't think I'll enjoy that.	Umm, maybe not.	I don't think I'd like that.	I don't think I would like to watch that one.	I'm not so sure.	I might not like it.	
+inform(movie)	negate	SD	I've actually already seen that movie, and I don't really want to watch it again.	I'm not interested.	No, I don't like that film.	I saw that before	Nope, I already watched that one and it was terrible.	No thanks, I had a really bad experience watching that movie before.	That's not my type of movie.	
+inform(movie)	request(movie_info)	NONE	What is it about?	Can you tell me more about #MOVIE?	What is it about?	What is it about?	Can you tell me more about that movie?	What is this movie about?		
+inform(movie)	request(movie_info)	HE	Hmm…maybe…do you think you could tell me more about it?	Umm, I think I'd like to know more about #MOVIE.	Could you maybe tell me what is it about?	I don't think I've heard of it. Could you maybe tell me more about it?	Would you mind giving me more information about this movie?	Could you maybe tell me what this is about?	I'm not sure, maybe you can tell me more about it?	
+inform(movie)	request(genre)	NONE	What kind of film is it?							
+inform(movie)	request(actor)	NONE	Which actors star in this film?							
+inform(movie)	request(another_one)	NONE	Please recommend me another movie instead.							
+inform(movie)	request(another_one)	HE	Could you please recommend me another movie, maybe?							
+inform(movie)	inform(genre)	NONE	Could you recommend me a #GENRE movie instead?							
+inform(movie)	inform(genre)	HE	Could you please recommend me a #GENRE movie, maybe?							
+inform(movie)	inform(actor)	NONE	Could you recommend me a movie with #ACTOR instead?							
+inform(movie)	inform(actor)	HE	Could you please recommend me a movie with #ACTOR, maybe?							
+inform(movie)	inform(director)	NONE	Could you recommend me a movie by #DIRECTOR instead?							
+inform(movie)	inform(director)	HE	Could you please recommend me a movie by #DIRECTOR, maybe?							
+request(reason_not_like)	inform(reason_not_like)	SD	I have already seen it.	I don't like the actors in this film.	I don't like the director.	I want something lighter.				
+request(another_one)	affirm	NONE	Yes, please.	Yes, please.	Yes, sure.	Yeah.	Yes.			
+request(another_one)	affirm	PR	Yes, absolutely. That would be great.							
+request(another_one)	negate	NONE	No, thank you.	No, thank you.		No, thanks.				
+request(another_one)	negate	HE	No, I think I'm good for now.	No, I think I'm good.						
+inform(movie_info)	affirm	NONE	Yes, please.	Yes, please.	Yes, sure.	Yeah.	Yes.			
+inform(movie_info)	affirm	PR	Yes, absolutely. That would be great.							
+inform(movie_info)	negate	NONE	No, thank you.	No, thank you.		No, thanks.				
+inform(movie_info)	negate	HE	No, I think I'm good for now.	No, I think I'm good.						
+inform(genre)	affirm	NONE	Yes, please.	Yes, please.	Yes, sure.	Yeah.	Yes.			
+inform(genre)	affirm	PR	Yes, absolutely. That would be great.							
+inform(genre)	negate	NONE	No, thank you.	No, thank you.		No, thanks.				
+inform(genre)	negate	HE	No, I think I'm good for now.	No, I think I'm good.						
+inform(actor)	affirm	NONE	Yes, please.	Yes, please.	Yes, sure.	Yeah.	Yes.			
+inform(actor)	affirm	PR	Yes, absolutely. That would be great.							
+inform(actor)	negate	NONE	No, thank you.	No, thank you.		No, thanks.				
+inform(actor)	negate	HE	No, I think I'm good for now.	No, I think I'm good.						
+request(feedback)	inform(feedback)	NONE	Yes.	Alright.	You did well.					
+request(feedback)	inform(feedback)	PR	Yes, you were absolutely wonderful SARA!	You were great, thank you!	You were very helpful. Thank you so much.	You're good at recommending movies.	You did a great job SARA, thank you very much!	Yeah! Your recommendations are amazing.		
+request(feedback)	inform(feedback)	HE	I guess you were alright.	I guess you were fine.	You did okay, I guess.	I guess it was good.	Yeah, I think it's alright.	I guess they were okay.		

@@ -1,3 +1,13 @@
+# Main file constants
+CONTEXT_KEY = 0  # Key to uniquely determine context for affirm/negate
+AGENT_KEY = 1  # Column ID of the key for programmed agent reasoner (prev_user_ts)
+USER_KEY = 3  # Column ID of the key for user simulator reasoner (agent_ts)
+NUM_FIELDS_KEYS = 2  # Number of fields for agent/user simulator reasoner keys (ts, cs)
+
+FILE_DELIMITER = '\t'  # TSV files
+OPTIONS_DELIMITER = ','  # Delimiter used for different ts/cs options
+
+
 # String constants
 # User Profile Probability keys and values:
 CONV_GOAL_TYPE_STR = 'conv_goal_type'
@@ -102,7 +112,6 @@ REQUEST_SLOTS_PROB = [0.34, 0.33, 0.33]
 INFORM_SLOTS_PROB = [0.25, 0.25, 0.25, 0.25]
 INFORM_REQUEST_MOVIE_PROB = [0.5, 0.5]
 PROB_INFORM_REQUEST_MOVIE = 0.5  # With this probability, either request more information or inform actor/genre/director
-
 
 # Derived constants
 BLANK_DF = {TS_STR: {INTENT_STR: '', SLOT_STR: '', VALUE_STR: ''}, CS_STR: ''}

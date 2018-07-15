@@ -7,17 +7,10 @@ from src import config
 from src import user_simulator
 from src import dialog_state_tracker
 from src.agent import rule_based_agent
+from src.util import scenario_reader
 
 np.random.seed(0)
 random.seed(0)
-
-CONTEXT_KEY = 0  # Key to uniquely determine context for affirm/negate
-AGENT_KEY = 1  # Column ID of the key for programmed agent reasoner (prev_user_ts)
-USER_KEY = 3  # Column ID of the key for user simulator reasoner (agent_ts)
-NUM_FIELDS_KEYS = 2  # Number of fields for agent/user simulator reasoner keys (ts, cs)
-
-FILE_DELIMITER = '\t'  # TSV files
-OPTIONS_DELIMITER = ','  # Delimiter used for different ts/cs options
 
 
 def verify_arguments(args):
@@ -50,6 +43,8 @@ def parse_arguments():
                         default='data', help='Name of data folder.')
     parser.add_argument('--lexicons_folder_name', dest='lexicons_folder_name', type=str,
                         default='lexicons', help='Name of lexicons folder (inside data folder).')
+    parser.add_argument('--nlg_db_folder_name', dest='nlg_db_folder_name', type=str,
+                        default='nlg_db', help='Name of nlg_db folder (inside data folder).')
     parser.add_argument('--lexicon_files_suffix', dest='lexicon_files_suffix', type=str,
                         default='2id.lexicon', help='Suffix for lexicon files.')
     parser.add_argument('--command_line_user', dest='command_line_user', type=int,
@@ -60,6 +55,12 @@ def parse_arguments():
                         default='rule_based', help='Type of agent: rule_based or rl.')
     parser.add_argument('--agent_social_type', dest='agent_social_type', type=str,
                         default='unsocial', help='Type of agent: social or unsocial (NONE CS).')
+    parser.add_argument('--agent_task_fname', dest='agent_task_fname', type=str,
+                        default='agent_task_utterances', help='Name of agent task utterances file.')
+    parser.add_argument('--agent_ack_fname', dest='agent_ack_fname', type=str,
+                        default='agent_ack_utterances', help='Name of agent ack utterances file.')
+    parser.add_argument('--user_task_fname', dest='user_task_fname', type=str,
+                        default='user_task_utterances', help='Name of user task utterances file.')
 
     # The following arguments determine the user profile for command line interaction.
     parser.add_argument('--conv_goal_type', dest='conv_goal_type', type=str,
@@ -86,70 +87,11 @@ def main():
     args.lexicons_folder_path = os.path.join(args.data_folder_path, args.lexicons_folder_name)
 
     data_folder_path = os.path.join(os.getcwd(), args.data_folder_name)
-    with open(os.path.join(data_folder_path, args.scenario_file_name), 'r', encoding='UTF-8') as f:
-        all_lines = f.readlines()
+    file_path = os.path.join(data_folder_path, args.scenario_file_name)
+    agent_reasoner = scenario_reader.get_agent_scenario(file_path)
+    user_sim_reasoner = scenario_reader.get_user_sim_scenario(file_path)
 
-        agent_reasoner = {}
-        pass
-        agent_reasoner[config.ACK_STR] = {}
-        agent_reasoner[config.OTHER_STR] = {}
-        user_simulator_reasoner = {}
-
-        for i, line in enumerate(all_lines):
-            line = line.rstrip('\n').rstrip(FILE_DELIMITER).split(FILE_DELIMITER)
-
-            if i != 0:
-                # Construct agent reasoner.
-                task_strategies = line[AGENT_KEY].split(OPTIONS_DELIMITER)
-                conv_strategies = line[AGENT_KEY + NUM_FIELDS_KEYS - 1].split(OPTIONS_DELIMITER)
-
-                for ts in task_strategies:
-                    ts = ts.strip(' ""')
-                    for cs in conv_strategies:
-                        cs = cs.strip(' ""')
-
-                        context = line[CONTEXT_KEY].strip(' ""')
-                        pre_condition_key = (context, ts, cs)
-
-                        post_condition_key = line[AGENT_KEY + NUM_FIELDS_KEYS]
-                        if post_condition_key == config.ACK_STR:
-                            reasoner_key = config.ACK_STR
-                        else:
-                            reasoner_key = config.OTHER_STR
-
-                        if pre_condition_key not in agent_reasoner[reasoner_key]:
-                            agent_reasoner[reasoner_key][pre_condition_key] = {}
-
-                        if post_condition_key not in agent_reasoner[reasoner_key][pre_condition_key]:
-                            agent_reasoner[reasoner_key][pre_condition_key][post_condition_key] = []
-
-                        agent_conv_strategies = line[AGENT_KEY + 2 * NUM_FIELDS_KEYS - 1].split(OPTIONS_DELIMITER)
-                        for acs in agent_conv_strategies:
-                            agent_reasoner[reasoner_key][pre_condition_key][post_condition_key].append(acs.strip(' ""'))
-
-                # Construct user reasoner.
-                conv_strategies = line[USER_KEY + NUM_FIELDS_KEYS - 1].split(OPTIONS_DELIMITER)
-                ts = line[USER_KEY].strip(' ""')
-                if ts != config.ACK_STR:
-                    for cs in conv_strategies:
-                        cs = cs.strip(' ""')
-
-                        pre_condition_key = (ts, cs)
-
-                        if pre_condition_key not in user_simulator_reasoner:
-                            user_simulator_reasoner[pre_condition_key] = {}
-
-                        for j in range(USER_KEY + NUM_FIELDS_KEYS, len(line), NUM_FIELDS_KEYS):
-                            post_condition_key = line[j].strip(' ""')
-                            if post_condition_key not in user_simulator_reasoner[pre_condition_key]:
-                                user_simulator_reasoner[pre_condition_key][post_condition_key] = []
-
-                            user_conv_strategies = line[j+1].split(OPTIONS_DELIMITER)
-                            for ucs in user_conv_strategies:
-                                ucs = ucs.strip(' ""')
-                                user_simulator_reasoner[pre_condition_key][post_condition_key].append(ucs)
-
-    user_sim = user_simulator.UserSimulator(args, user_simulator_reasoner)
+    user_sim = user_simulator.UserSimulator(args, user_sim_reasoner)
     state_tracker = dialog_state_tracker.StateTracker(args)
     agent = rule_based_agent.RuleBasedAgent(args, agent_reasoner)
 

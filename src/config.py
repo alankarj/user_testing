@@ -7,6 +7,8 @@ NUM_FIELDS_KEYS = 2  # Number of fields for agent/user simulator reasoner keys (
 FILE_DELIMITER = '\t'  # TSV files
 OPTIONS_DELIMITER = ','  # Delimiter used for different ts/cs options
 
+NUM_FIELDS_NLG_AGENT = 5
+NUM_FIELDS_NLG_USER = 3
 
 # String constants
 # User Profile Probability keys and values:

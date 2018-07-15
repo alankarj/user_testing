@@ -7,7 +7,7 @@ from src import config
 from src import user_simulator
 from src import dialog_state_tracker
 from src.agent import rule_based_agent
-from src.util import scenario_reader
+from src.util import scenario_reader, nlg_db_reader
 
 np.random.seed(0)
 random.seed(0)
@@ -56,11 +56,11 @@ def parse_arguments():
     parser.add_argument('--agent_social_type', dest='agent_social_type', type=str,
                         default='unsocial', help='Type of agent: social or unsocial (NONE CS).')
     parser.add_argument('--agent_task_fname', dest='agent_task_fname', type=str,
-                        default='agent_task_utterances', help='Name of agent task utterances file.')
+                        default='agent_task_utterances.tsv', help='Name of agent task utterances file.')
     parser.add_argument('--agent_ack_fname', dest='agent_ack_fname', type=str,
-                        default='agent_ack_utterances', help='Name of agent ack utterances file.')
+                        default='agent_ack_utterances.tsv', help='Name of agent ack utterances file.')
     parser.add_argument('--user_task_fname', dest='user_task_fname', type=str,
-                        default='user_task_utterances', help='Name of user task utterances file.')
+                        default='user_task_utterances.tsv', help='Name of user task utterances file.')
 
     # The following arguments determine the user profile for command line interaction.
     parser.add_argument('--conv_goal_type', dest='conv_goal_type', type=str,
@@ -85,36 +85,37 @@ def main():
 
     args.data_folder_path = os.path.join(os.getcwd(), args.data_folder_name)
     args.lexicons_folder_path = os.path.join(args.data_folder_path, args.lexicons_folder_name)
+    args.nlg_db_folder_path = os.path.join(args.data_folder_path, args.nlg_db_folder_name)
 
-    data_folder_path = os.path.join(os.getcwd(), args.data_folder_name)
-    file_path = os.path.join(data_folder_path, args.scenario_file_name)
-    agent_reasoner = scenario_reader.get_agent_scenario(file_path)
-    user_sim_reasoner = scenario_reader.get_user_sim_scenario(file_path)
+    scenario_file_path = os.path.join(args.data_folder_path, args.scenario_file_name)
+    agent_reasoner = scenario_reader.get_agent_scenario(scenario_file_path)
+    user_sim_reasoner = scenario_reader.get_user_sim_scenario(scenario_file_path)
+
+    agent_ack_nlg_db = nlg_db_reader.read_nlg_db(
+        os.path.join(args.nlg_db_folder_path, args.agent_ack_fname), config.NUM_FIELDS_NLG_AGENT)
+    agent_task_nlg_db = nlg_db_reader.read_nlg_db(
+        os.path.join(args.nlg_db_folder_path, args.agent_task_fname), config.NUM_FIELDS_NLG_AGENT)
+    user_task_nlg_db = nlg_db_reader.read_nlg_db(
+        os.path.join(args.nlg_db_folder_path, args.user_task_fname), config.NUM_FIELDS_NLG_USER)
 
     user_sim = user_simulator.UserSimulator(args, user_sim_reasoner)
     state_tracker = dialog_state_tracker.StateTracker(args)
     agent = rule_based_agent.RuleBasedAgent(args, agent_reasoner)
 
-    print(agent_reasoner[config.ACK_STR])
-    print()
-    print(agent_reasoner[config.OTHER_STR])
-
-    # print(user_simulator_reasoner)
-
-    for _ in range(args.num_dialogs):
-        user_sim.reset()
-        state = state_tracker.reset()
-        dialog_over = False
-        while not dialog_over:
-            agent_action = agent.next(state)
-            print("Agent action: ", agent_action)
-            state, dialog_over, full_dialog = state_tracker.step(agent_action=agent_action)
-            user_action = user_sim.next(state, agent_action)
-            print("User action: ", user_action)
-            state, dialog_over, full_dialog = state_tracker.step(user_action=user_action)
-            print("State: ", json.dumps(state, indent=2))
-            if dialog_over:
-                print("Full dialog: ", json.dumps(full_dialog, indent=2))
+    # for _ in range(args.num_dialogs):
+    #     user_sim.reset()
+    #     state = state_tracker.reset()
+    #     dialog_over = False
+    #     while not dialog_over:
+    #         agent_action = agent.next(state)
+    #         print("Agent action: ", agent_action)
+    #         state, dialog_over, full_dialog = state_tracker.step(agent_action=agent_action)
+    #         user_action = user_sim.next(state, agent_action)
+    #         print("User action: ", user_action)
+    #         state, dialog_over, full_dialog = state_tracker.step(user_action=user_action)
+    #         print("State: ", json.dumps(state, indent=2))
+    #         if dialog_over:
+    #             print("Full dialog: ", json.dumps(full_dialog, indent=2))
 
 
 if __name__ == "__main__":

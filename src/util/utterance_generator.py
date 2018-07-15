@@ -37,3 +37,9 @@ class UtteranceGenerator:
             self.nlg_id = random.sample(self.nlg_options, 1)[0]
             utterance = db[key][self.nlg_id]
         return utterance
+
+    @staticmethod
+    def process_utterance(state, utterance):
+        for slot, slot_placeholder in config.INF_PLACEHOLDER_DICT.items():
+            utterance = utterance.replace(slot_placeholder, state[config.TASK_STATE_STR][slot])
+        return utterance

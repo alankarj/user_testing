@@ -1,9 +1,10 @@
 prev_agent_ts	prev_user_ts	prev_user_cs	ts	cs	1	2	3	4	5	6	7	8
 greeting	greeting	PR	ack	NONE	Thank you.							
 greeting	greeting	QESD	ack	SD	Not really. But it's ok because I'm almost done with my work for today.	I feel the same way.	Actually it's my first day in the job.	Cool, I've been pretty busy lately.				
-introduce	affirm, inform(genre), inform(actor), inform(director)		ack	NONE	Oh cool.	That sounds great.	Good.	Great.	Cool.	Great to hear that.	Sounds good!	Glad you're on board.
-introduce	affirm, inform(genre), inform(actor), inform(director)		ack	SD		I feel the same way.	I love watching them too.	Great! I'm a big movie buff.	Nice, I'm quite a movie buff myself!		Same here.	We're so similar. I like watching movies with like-minded people.
-introduce	affirm, inform(genre), inform(actor), inform(director)		ack	PR		You seem like a great person!	That's great. I like you already.	Great. You seem nice.		Wonderful! You have a great taste in movies.	You sound like a fun person.	Great minds think alike!
+introduce	inform(genre), inform(actor), inform(director)		ack	NONE	Sure.	Sure.	Sure.	Sure.	Sure.			
+introduce	affirm		ack	NONE	Oh cool.	That sounds great.	Good.	Great.	Cool.	Great to hear that.	Sounds good!	Glad you're on board.
+introduce	affirm		ack	SD		I feel the same way.	I love watching them too.	Great! I'm a big movie buff.	Nice, I'm quite a movie buff myself!		Same here.	We're so similar. I like watching movies with like-minded people.
+introduce	affirm		ack	PR		You seem like a great person!	That's great. I like you already.	Great. You seem nice.		Wonderful! You have a great taste in movies.	You sound like a fun person.	Great minds think alike!
 introduce	negate		ack	NONE	Ok, no worries.	I totally understand.	Oh no.	Okay, that's alright.	Oh, I'm sorry to hear that.	Oh! That's bad.	Alright. That's too bad.	That's alright.
 request(last_movie)	inform(last_movie)		ack	NONE	Okay.	Awesome.	Cool.	Cool.	That's a good one!		Okay cool.	Sounds like a cool movie.
 request(last_movie)	inform(last_movie)		ack	SD		I've watched that one too!	Oh, I saw that as well.	Great, I watched that one too.	Yeah, that's also one of my favorites!		Oh I like that movie!	I really want to watch that movie.

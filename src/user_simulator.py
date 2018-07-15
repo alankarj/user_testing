@@ -18,6 +18,7 @@ class UserSimulator:
         self.user_profile = self.generate_user_profile()
         self.slot_values = self.get_slot_values()
         self.user_agenda = self.generate_user_agenda()
+        return self.user_profile
 
     def generate_user_profile(self):
         params = self.params

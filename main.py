@@ -112,7 +112,7 @@ def main():
 
     for _ in range(args.num_dialogs):
         nlg_id = random.sample(nlg_options, 1)[0]
-        user_sim.reset()
+        user_profile = user_sim.reset()
         state = state_tracker.reset()
         dialog_over = False
 
@@ -140,14 +140,16 @@ def main():
             state, dialog_over, full_dialog = state_tracker.step(user_action=user_action)
 
             # print("Agent action: ", agent_action)
-            # print("Agent utterance: ", agent_utterance)
             # print("User action: ", user_action)
-            # print("User utterance: ", user_utterance)
             # print("State: ", json.dumps(state, indent=2))
+            print("Agent utterance: ", utter_gen.process_utterance(state, agent_utterance))
+            print("User utterance: ", utter_gen.process_utterance(state, user_utterance))
 
             if dialog_over:
-                with open(os.path.join(args.synthetic_dialogs_folder_path, file_id + '.pkl'), 'wb') as fp:
+                with open(os.path.join(args.synthetic_dialogs_folder_path, file_id + '_full_dialog.pkl'), 'wb') as fp:
                     pickle.dump(full_dialog, fp)
+                with open(os.path.join(args.synthetic_dialogs_folder_path, file_id + '_user_profile.pkl'), 'wb') as fp:
+                    pickle.dump(user_profile, fp)
                 # print("Full dialog: ", json.dumps(full_dialog, indent=2))
 
             f.write(config.AGENT_STR + ": " + agent_utterance + "\n")

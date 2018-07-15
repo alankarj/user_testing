@@ -22,10 +22,11 @@ class RuleBasedAgent:
         agent_ts_string_other, agent_cs_other = '', ''
         ack_key, ts_key = '', ''
 
+        if task_state[config.TURN_STR] > 0:
+            if self.params.agent_social_type != config.AGENT_SOCIAL_TYPE[0]:
+                agent_ts_string_ack, agent_cs_ack, ack_key = self.reasoner_helper(self.reasoner[config.ACK_STR], key)
+
         while not correct_ts_string_found:
-            if task_state[config.TURN_STR] > 0:
-                if self.params.agent_social_type != config.AGENT_SOCIAL_TYPE[0]:
-                    agent_ts_string_ack, agent_cs_ack, ack_key = self.reasoner_helper(self.reasoner[config.ACK_STR], key)
             agent_ts_string_other, agent_cs_other, ts_key = self.reasoner_helper(self.reasoner[config.OTHER_STR], key, ack_cs=agent_cs_ack)
 
             for s in config.INFORMABLE_SLOTS:

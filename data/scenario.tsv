@@ -6,7 +6,8 @@ prev_agent_ts	prev_user_ts	prev_user_cs	agent_ts	agent_cs	user_ts	user_cs
 greeting	greeting	PR	ack	NONE																		
 greeting	greeting	QESD	ack	SD		NONE																
 greeting	greeting		introduce	NONE, SD, QESD	affirm	NONE, SD	negate	NONE, SD	inform(genre)	NONE	inform(actor)	NONE	inform(director)	NONE								
-introduce	affirm, inform(genre), inform(actor), inform(director)		ack	NONE, SD, PR																		
+introduce	inform(genre), inform(actor), inform(director)		ack	NONE																		
+introduce	affirm		ack	NONE, SD, PR																		
 introduce	negate		ack	NONE																		
 introduce	affirm, inform(genre), inform(actor), inform(director)		request(last_movie)	QESD, SD, PR	inform(last_movie)	SD	negate	NONE														
 introduce	negate		request(last_movie)	HE, SD	inform(last_movie)	SD	negate	NONE														
@@ -30,7 +31,8 @@ request(actor)	inform(actor), negate		inform(movie)	QESD, SD, PR, VSN	affirm	NON
 inform(movie)	affirm		ack	NONE, PR, VSN, SD																		
 inform(movie)	affirm, negate	HE	ack	NONE																		
 inform(movie)	negate	NONE	request(reason_not_like)	QESD, SD, HE	inform(reason_not_like)	SD																
-inform(movie)	affirm, negate		request(another_one)	NONE, QESD, PR, SD, HE, VSN	affirm	NONE, PR	negate	NONE, HE														
+inform(movie)	affirm, negate		request(another_one)	NONE, QESD, PR, SD, HE	affirm	NONE, PR	negate	NONE, HE														
+inform(movie)	affirm		request(another_one)	VSN																		
 inform(movie)	request(movie_info)		inform(movie_info)	NONE	affirm	NONE, PR	negate	NONE, HE														
 inform(movie)	request(genre)		inform(genre)	NONE	affirm	NONE, PR	negate	NONE, HE														
 inform(movie)	request(actor)		inform(actor)	NONE	affirm	NONE, PR	negate	NONE, HE														

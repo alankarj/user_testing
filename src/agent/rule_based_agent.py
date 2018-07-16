@@ -23,7 +23,7 @@ class RuleBasedAgent:
         ack_key, ts_key = '', ''
 
         if task_state[config.TURN_STR] > 0:
-            if self.params.agent_social_type != config.AGENT_SOCIAL_TYPE[0]:
+            if self.params.control_setting == 0 or (self.params.agent_social_type != config.AGENT_SOCIAL_TYPE[0]):
                 agent_ts_string_ack, agent_cs_ack, ack_key = self.reasoner_helper(self.reasoner[config.ACK_STR], key)
 
         while not correct_ts_string_found:
@@ -94,14 +94,17 @@ class RuleBasedAgent:
     def social_reasoner(self, cs_list, ack_cs=None):
         params = self.params
         cs = ack_cs
-        if params.agent_social_type == config.AGENT_SOCIAL_TYPE[2]:
-            while cs == ack_cs:
-                if len(cs_list) > 1:
-                    # Full social agent!
-                    cs = random.sample(cs_list[1:], 1)[0]
-                else:
-                    cs = cs_list[0]
+        if params.control_setting == 0:
+            cs = random.sample(cs_list, 1)[0]
+
         else:
-            cs = cs_list[0]
+            if params.agent_social_type == config.AGENT_SOCIAL_TYPE[2]:
+                while cs == ack_cs:
+                    if len(cs_list) > 1:
+                        cs = random.sample(cs_list[1:], 1)[0]
+                    else:
+                        cs = cs_list[0]
+            else:
+                cs = cs_list[0]
         assert cs != ''
         return cs

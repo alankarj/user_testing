@@ -95,7 +95,9 @@ class UserSimulator:
         user_value = ''
 
         if agent_ts_string == config.AGENT_TS_STRINGS[0]:
-            if (self.user_profile[config.INITIATIVE_TYPE_STR] == config.INITIATIVE_TYPES[0]) and (self.slot_values != {}):
+            if (self.user_profile[config.COOPERATION_TYPE_STR] == config.COOPERATION_TYPES[0]) and \
+                    (self.user_profile[config.INITIATIVE_TYPE_STR] == config.INITIATIVE_TYPES[0]) and \
+                        (self.slot_values != {}):
                 # High initiative user.
                 dictionary = config.PROB_USER_BEHAVIOUR[config.INFORM_STR + '_' + config.SLOT_STR]
                 valid_slot_found = False

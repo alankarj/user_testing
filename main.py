@@ -9,8 +9,8 @@ from src import dialog_state_tracker
 from src.agent import rule_based_agent
 from src.util import scenario_reader, run_and_convert_dialogs
 
-np.random.seed(1)
-random.seed(1)
+np.random.seed(0)
+random.seed(0)
 
 
 def verify_arguments(args):
@@ -43,10 +43,55 @@ def verify_arguments(args):
         raise ValueError('%d generate_natural_dialogs not supported.' % args.generate_natural_dialogs)
     if args.generate_synthetic_data not in [0, 1]:
         raise ValueError('%d generate_synthetic_data not supported.' % args.generate_synthetic_data)
-    if args.print_info not in [0, 1]:
+    if args.print_info not in [0, 1, 2]:
         raise ValueError('%d print_info not supported.' % args.print_info)
     if args.write_to_file not in [0, 1]:
         raise ValueError('%d write_to_file not supported.' % args.write_to_file)
+    if args.control_setting not in [0, 1]:
+        raise ValueError('%d control_setting not supported.' % args.control_setting)
+
+
+def evaluate_dialogs(dialog_list, key, k, ack=False):
+    all_flows = []
+    all_turns = []
+    orig_k = k
+    for i, dialog in enumerate(dialog_list):
+        flow = []
+        all_turns.append(len(list(dialog.keys())))
+        for turn in dialog:
+            agent_turn = dialog[turn][config.AGENT_STR]
+            if key == config.CS_STR:
+                if ack:
+                    flow.append((agent_turn[config.AGENT_ACTION_DICT_STR][config.ACTION_STR][1], agent_turn[config.AGENT_DF_STR][key]))
+                else:
+                    flow.append(agent_turn[config.AGENT_DF_STR][key])
+            elif key == config.TS_STR:
+                flow.append(config.deconstruct_ts(agent_turn[config.AGENT_DF_STR][key])[0])
+            else:
+                flow.append((agent_turn[config.AGENT_ACTION_DICT_STR][config.ACTION_STR][1], config.deconstruct_ts(agent_turn[config.AGENT_DF_STR][config.TS_STR])[0],
+                            agent_turn[config.AGENT_DF_STR][config.CS_STR]))
+            user_turn = dialog[turn][config.USER_STR]
+            if key == config.CS_STR:
+                flow.append(user_turn[config.USER_DF_STR][key])
+            elif key == config.TS_STR:
+                flow.append(config.deconstruct_ts(user_turn[config.USER_DF_STR][key])[0])
+            else:
+                flow.append((config.deconstruct_ts(user_turn[config.USER_DF_STR][config.TS_STR])[0], user_turn[config.USER_DF_STR][config.CS_STR]))
+        k = min(orig_k, len(flow))
+        i = 0
+        while i + k <= len(flow):
+            all_flows.append(tuple(flow[i:i + k]))
+            print(tuple(flow[i:i + k]))
+            i += 1
+
+    values = list(set(all_flows))
+    keys = list(range(len(values)))
+    dictionary = dict(zip(keys, values))
+    print(json.dumps(dictionary, indent=2))
+    print(len(set(all_flows)))
+    print(len(all_flows))
+    print("Average number of turns: ", sum(all_turns)/len(all_turns))
+    return len(set(all_flows))/len(all_flows)
 
 
 def parse_arguments():
@@ -82,7 +127,7 @@ def parse_arguments():
     parser.add_argument('--agent_type', dest='agent_type', type=str,
                         default='rule_based', help='Type of agent: rule_based or rl.')
     parser.add_argument('--agent_social_type', dest='agent_social_type', type=str,
-                        default='unsocial', help='Type of agent: social or unsocial (NONE CS).')
+                        default='full-social', help='Type of agent: social or unsocial (NONE CS).')
 
     parser.add_argument('--generate_natural_dialogs', dest='generate_natural_dialogs', type=int,
                         default=0, help='Flag denoting whether or not synthetic natural '
@@ -94,6 +139,8 @@ def parse_arguments():
                         default=1, help='Flag for printing information.')
     parser.add_argument('--write_to_file', dest='write_to_file', type=int,
                         default=1, help='Flag for writing to file.')
+    parser.add_argument('--control_setting', dest='control_setting', type=int,
+                        default=0, help='Free-flow data generation or control setting.')
 
     # The following arguments determine the user profile for command line interaction.
     parser.add_argument('--conv_goal_type', dest='conv_goal_type', type=str,
@@ -132,6 +179,7 @@ def main():
     if args.generate_synthetic_data == 1:
         num_dialogs = args.num_dialogs_synthetic
         dialog_list, nl_dialog_list = run_and_convert_dialogs.run_dialogs(args, num_dialogs)
+        print(evaluate_dialogs(dialog_list, key=config.TS_STR, k=1000, ack=True))
 
 
 if __name__ == "__main__":

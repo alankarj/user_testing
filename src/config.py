@@ -84,6 +84,7 @@ AGENT_TYPE = ['rule_based', 'rl']
 AGENT_SOCIAL_TYPE = ['unsocial', 'part-social', 'full-social']
 
 NON_REQINF_USER_TS = ['greeting', 'affirm', 'negate', 'bye']
+NON_REQINF_AGENT_TS = ['greeting', 'introduce', 'bye']
 
 ALL_CONV_STRATEGIES = ['SD', 'PR', 'HE', 'QESD', 'VSN', 'NONE']
 INFORM_MOVIES_CS_LIST = ['QESD', 'SD', 'PR', 'VSN']
@@ -229,3 +230,53 @@ def get_agent_loop_keys():
         loop_keys.append(key)
     loop_keys.append((BASE_LOOP_KEYS[1], AFFIRM_STR, ''))
     return loop_keys
+
+
+def get_user_actions_map():
+    all_user_actions = ['']
+    for action in NON_REQINF_USER_TS:
+        all_user_actions.append(action)
+    for slot in INFORMABLE_SLOTS + INFORMABLE_SLOTS_PSEUDO:
+        all_user_actions.append(INFORM_STR + '(' + slot + ')')
+    for slot in REQUESTABLE_SLOTS + REQUESTABLE_SLOTS_PSEUDO:
+        all_user_actions.append(REQUEST_STR + '(' + slot + ')')
+
+    values = list(range(len(all_user_actions)))
+    dictionary = dict(zip(all_user_actions, values))
+    return dictionary
+
+
+def get_agent_actions_map():
+    all_agent_actions = ['']
+    for action in NON_REQINF_AGENT_TS:
+        all_agent_actions.append(action)
+    for slot in INFORMABLE_SLOTS + INFORMABLE_SLOTS_PSEUDO:
+        all_agent_actions.append(REQUEST_STR + '(' + slot + ')')
+    for slot in REQUESTABLE_SLOTS + REQUESTABLE_SLOTS_PSEUDO:
+        all_agent_actions.append(INFORM_STR + '(' + slot + ')')
+
+    all_agent_actions.append(AGENT_TS_STRINGS[3])
+
+    values = list(range(len(all_agent_actions)))
+    dictionary = dict(zip(all_agent_actions, values))
+    return dictionary
+
+
+def get_cs_map():
+    all_cs = ['']
+    for cs in ALL_CONV_STRATEGIES:
+        all_cs.append(cs)
+    values = list(range(len(all_cs)))
+    dictionary = dict(zip(all_cs, values))
+    return dictionary
+
+
+def get_state_slots_map():
+    all_state_slots = []
+    for slot in INFORMABLE_SLOTS + INFORMABLE_SLOTS_PSEUDO:
+        all_state_slots.append(slot)
+    for slot in REQUESTABLE_SLOTS + REQUESTABLE_SLOTS_PSEUDO:
+        all_state_slots.append(REQUEST_STR + '_' + slot)
+    values = list(range(len(all_state_slots)))
+    dictionary = dict(zip(all_state_slots, values))
+    return dictionary

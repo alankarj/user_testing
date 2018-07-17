@@ -3,10 +3,11 @@ import numpy as np
 import argparse
 import random
 import json
+import pickle
 from src import config
 from src import user_simulator
 from src import dialog_state_tracker
-from src.agent import rule_based_agent
+from src.agent import rule_based_agent, rl_agent
 from src.util import scenario_reader, run_and_convert_dialogs
 
 np.random.seed(0)
@@ -49,6 +50,8 @@ def verify_arguments(args):
         raise ValueError('%d write_to_file not supported.' % args.write_to_file)
     if args.control_setting not in [0, 1]:
         raise ValueError('%d control_setting not supported.' % args.control_setting)
+    if args.save_dialog_data not in [0, 1]:
+        raise ValueError('%d save_dialog_data not supported.' % args.save_dialog_data)
 
 
 def evaluate_dialogs(dialog_list, key, k, ack=False):
@@ -116,16 +119,18 @@ def parse_arguments():
                         default='agent_ack_utterances.tsv', help='Name of agent ack utterances file.')
     parser.add_argument('--user_task_fname', dest='user_task_fname', type=str,
                         default='user_task_utterances.tsv', help='Name of user task utterances file.')
+    parser.add_argument('--dialog_fname', dest='dialog_fname', type=str,
+                        default='dialog_list', help='Name of user synthetic dialog data file.')
 
     parser.add_argument('--command_line_user', dest='command_line_user', type=int,
                         default=0, help='Whether to have a command line user simulator or not.')
     parser.add_argument('--num_dialogs_synthetic', dest='num_dialogs_synthetic', type=int,
-                        default=1, help='Number of synthetic dialogs.')
+                        default=2000, help='Number of synthetic dialogs.')
     parser.add_argument('--num_dialogs_rl', dest='num_dialogs_rl', type=int,
                         default=1, help='Number of RL dialogs.')
 
     parser.add_argument('--agent_type', dest='agent_type', type=str,
-                        default='rule_based', help='Type of agent: rule_based or rl.')
+                        default='rl', help='Type of agent: rule_based or rl.')
     parser.add_argument('--agent_social_type', dest='agent_social_type', type=str,
                         default='full-social', help='Type of agent: social or unsocial (NONE CS).')
 
@@ -133,14 +138,16 @@ def parse_arguments():
                         default=0, help='Flag denoting whether or not synthetic natural '
                                         'language dialogs need to be generated.')
     parser.add_argument('--generate_synthetic_data', dest='generate_synthetic_data', type=int,
-                        default=1, help='Flag denoting whether or not synthetic data '
+                        default=0, help='Flag denoting whether or not synthetic data '
                                         'at dialog frame level need to be generated.')
     parser.add_argument('--print_info', dest='print_info', type=int,
                         default=1, help='Flag for printing information.')
     parser.add_argument('--write_to_file', dest='write_to_file', type=int,
-                        default=1, help='Flag for writing to file.')
+                        default=0, help='Flag for writing to file.')
     parser.add_argument('--control_setting', dest='control_setting', type=int,
                         default=0, help='Free-flow data generation or control setting.')
+    parser.add_argument('--save_dialog_data', dest='save_dialog_data', type=int,
+                        default=1, help='Save synthetic dialog data for training SL/RL+SL agent.')
 
     # The following arguments determine the user profile for command line interaction.
     parser.add_argument('--conv_goal_type', dest='conv_goal_type', type=str,
@@ -180,6 +187,17 @@ def main():
         num_dialogs = args.num_dialogs_synthetic
         dialog_list, nl_dialog_list = run_and_convert_dialogs.run_dialogs(args, num_dialogs)
         print(evaluate_dialogs(dialog_list, key=config.TS_STR, k=1000, ack=True))
+
+        if args.save_dialog_data == 1:
+            with open(os.path.join(args.data_folder_path, args.dialog_fname + '.pkl'), 'wb') as f:
+                pickle.dump(dialog_list, f)
+
+    if args.agent_type == 'rl':
+        args.dialog_list = pickle.load(open(os.path.join(args.data_folder_path, args.dialog_fname + '.pkl'), 'rb'))
+        args.agent = rl_agent.RLAgent(args)
+        # state = args.dialog_list[0][0][config.AGENT_STR][config.PREV_STATE_STR][config.TASK_STATE_STR]
+        # args.agent.get_task_state_representation(state)
+        args.agent.prepare_training_data()
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 .idea/
 data/.DS_Store
 data/synthetic_dialogs
+data/synthetic_dialogs/.DS_Store
 
 
 # Byte-compiled / optimized / DLL files

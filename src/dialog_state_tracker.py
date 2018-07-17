@@ -37,7 +37,7 @@ class StateTracker:
                             and string slot_value
         :return: state: updated state dictionary
         """
-        task_state = self.state[config.TASK_STATE_STR]
+        task_state = copy.deepcopy(self.state[config.TASK_STATE_STR])
         current_turn = math.floor(task_state[config.TURN_STR])
 
         if user_action is not None:

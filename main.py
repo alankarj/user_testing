@@ -130,9 +130,11 @@ def parse_arguments():
                         default=1, help='Number of RL dialogs.')
 
     parser.add_argument('--agent_type', dest='agent_type', type=str,
-                        default='rl', help='Type of agent: rule_based or rl.')
+                        default='rule_based', help='Type of agent: rule_based or rl.')
     parser.add_argument('--agent_social_type', dest='agent_social_type', type=str,
                         default='full-social', help='Type of agent: social or unsocial (NONE CS).')
+    parser.add_argument('--user_simulator_only', dest='user_simulator_only', type=int,
+                        default=1, help='Only use user simulator.')
 
     parser.add_argument('--generate_natural_dialogs', dest='generate_natural_dialogs', type=int,
                         default=0, help='Flag denoting whether or not synthetic natural '
@@ -185,19 +187,7 @@ def main():
 
     if args.generate_synthetic_data == 1:
         num_dialogs = args.num_dialogs_synthetic
-        dialog_list, nl_dialog_list = run_and_convert_dialogs.run_dialogs(args, num_dialogs)
-        print(evaluate_dialogs(dialog_list, key=config.TS_STR, k=1000, ack=True))
-
-        if args.save_dialog_data == 1:
-            with open(os.path.join(args.data_folder_path, args.dialog_fname + '.pkl'), 'wb') as f:
-                pickle.dump(dialog_list, f)
-
-    if args.agent_type == 'rl':
-        args.dialog_list = pickle.load(open(os.path.join(args.data_folder_path, args.dialog_fname + '.pkl'), 'rb'))
-        args.agent = rl_agent.RLAgent(args)
-        # state = args.dialog_list[0][0][config.AGENT_STR][config.PREV_STATE_STR][config.TASK_STATE_STR]
-        # args.agent.get_task_state_representation(state)
-        args.agent.prepare_training_data()
+        run_and_convert_dialogs.run_dialogs(args, num_dialogs)
 
 
 if __name__ == "__main__":

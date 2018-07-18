@@ -72,8 +72,8 @@ def run_dialogs(args, num_dialogs):
 
             user_action_dict = args.user_sim.next(state, agent_action)
             user_action = user_action_dict[config.ACTION_STR]
-            user_utterance = utter_gen.process_utterance(state, utter_gen.get_user_utterance(user_action_dict))
             state, dialog_over, full_dialog = args.state_tracker.step(user_action=user_action)
+            user_utterance = utter_gen.process_utterance(state, utter_gen.get_user_utterance(user_action_dict))
             counter += 1
 
 

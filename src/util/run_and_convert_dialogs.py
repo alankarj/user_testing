@@ -6,7 +6,8 @@ from src.util import muf_simulator
 
 DEFAULT_USER_UTTERANCE = '{\"messageId\":\"MSG_START_INTERACTION\",\"payload\":\"\",\"requestType\":\"\",\"sessionId\":\"\"}'
 DEFAULT_PHONE_ID = "0123456789abcdef"
-DEFAULT_IP_ADDRESS = "128.237.207.193"
+# DEFAULT_IP_ADDRESS = "128.237.207.193"
+DEFAULT_IP_ADDRESS = "127.0.0.1"
 
 
 def run_dialogs(args, num_dialogs):
@@ -64,7 +65,7 @@ def run_dialogs(args, num_dialogs):
             else:
                 start = 0
 
-            agent_action = muf_simulator.exchange(socket, phone_id, user_utterance, start)
+            agent_action = muf_simulator.exchange(socket, phone_id, user_utterance, start, send_to_surf=False)
             agent_action = parse_agent_action(agent_action)
 
             state, dialog_over, full_dialog = args.state_tracker.step(agent_action=agent_action)
@@ -91,8 +92,8 @@ def parse_agent_action(agent_action):
     agent_action[3] = map_cs(agent_action[3])
     agent_action[2] = map_agent_ts_str(agent_action[2])
 
-    # if agent_action[2] in ['request(last_movie)', 'request(reason_like)', 'request(genre)', 'request(actor)', 'request(director)', 'inform(movie)', 'request(reason_not_like)']:
-    #     agent_action[3] = 'QESD'
+    if agent_action[2] in ['request(last_movie)', 'request(reason_like)', 'request(genre)', 'request(actor)', 'request(director)', 'inform(movie)', 'request(reason_not_like)']:
+        agent_action[3] = 'QESD'
     if agent_action[2] in ['inform(actor)', 'inform(genre)', 'inform(movie_info)', 'request(feedback)']:
         agent_action[3] = 'NONE'
     agent_action = tuple(agent_action)

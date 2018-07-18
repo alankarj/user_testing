@@ -1,8 +1,18 @@
 import zmq
 import re
+from time import sleep
+from src.util import run_and_convert_dialogs
 
 C_CLIENT = b'MDPC01'
 context = zmq.Context()
+
+
+#SURF client
+import src.util.surf.SURFClient as SURFClient
+import threading
+SURFClient.subscribe("MSG_NLG")
+t = threading.Thread(target=SURFClient.clientThread)
+t.start()
 
 
 def request_bytes(utterance):
@@ -14,11 +24,32 @@ def exchange(socket, phone_id, utterance, start):
         request = bytes(utterance, encoding='utf-8')
     else:
         request = request_bytes(utterance)
+
+    '''
+    send to SURF
+    '''
+    import json
+    requestjson = json.loads(request.decode("utf-8"))
+    if 'payload' in requestjson.keys():
+        if len(requestjson['payload']) > 0:
+            payloadjson = json.loads(requestjson['payload'])
+            if 'utterance' in payloadjson.keys():
+                SURFClient.sendMessage("MSG_ASR", payloadjson['utterance'])
+                numOfChar = len(payloadjson['utterance'])
+                sleep(numOfChar * 0.05) # 50 msec per char
+
     socket.send_multipart([C_CLIENT, bytes(phone_id, encoding='utf-8'), request])
 
     message = socket.recv_multipart()
     splitting = re.split("\\\\\"", message[2].decode('utf-8'), maxsplit=3, flags=0)
     output = splitting[1]
+
+    utt = run_and_convert_dialogs.parse_agent_action(output)[4]
+
+    SURFClient.sendMessage("MSG_NLG", utt)
+    numOfChar = len(utt)
+    sleep(numOfChar * 0.05)  # 50 msec per char
+
     return output
 
 
@@ -36,7 +67,6 @@ def setup(socket, phone_id, muf_address):
     socket.send_multipart([C_CLIENT, b'session-manager', request])
     message = socket.recv_multipart()
     return message
-
 
 def simulation(phone_id, ip_address):
     muf_address = "tcp://" + ip_address + ":5555"

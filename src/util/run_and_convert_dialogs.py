@@ -10,6 +10,13 @@ DEFAULT_IP_ADDRESS = "128.237.207.193"
 
 
 def run_dialogs(args, num_dialogs):
+    # SURF client
+    import src.util.surf.SURFClient as SURFClient
+    import threading
+    SURFClient.subscribe("MSG_NLG")
+    t = threading.Thread(target=SURFClient.clientThread)
+    t.start()
+
     """
     :param args: All the parser (command line) arguments.
     :param num_dialogs: Number of dialogs to run.
@@ -59,6 +66,7 @@ def run_dialogs(args, num_dialogs):
 
             agent_action = muf_simulator.exchange(socket, phone_id, user_utterance, start)
             agent_action = parse_agent_action(agent_action)
+
             state, dialog_over, full_dialog = args.state_tracker.step(agent_action=agent_action)
 
             user_action_dict = args.user_sim.next(state, agent_action)

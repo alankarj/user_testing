@@ -137,10 +137,10 @@ def parse_arguments():
                         default=1, help='Only use user simulator.')
 
     parser.add_argument('--generate_natural_dialogs', dest='generate_natural_dialogs', type=int,
-                        default=0, help='Flag denoting whether or not synthetic natural '
+                        default=1, help='Flag denoting whether or not synthetic natural '
                                         'language dialogs need to be generated.')
     parser.add_argument('--generate_synthetic_data', dest='generate_synthetic_data', type=int,
-                        default=0, help='Flag denoting whether or not synthetic data '
+                        default=1, help='Flag denoting whether or not synthetic data '
                                         'at dialog frame level need to be generated.')
     parser.add_argument('--print_info', dest='print_info', type=int,
                         default=1, help='Flag for printing information.')

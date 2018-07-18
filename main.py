@@ -7,7 +7,7 @@ import pickle
 from src import config
 from src import user_simulator
 from src import dialog_state_tracker
-from src.agent import rule_based_agent, rl_agent
+from src.agent import rule_based_agent
 from src.util import scenario_reader, run_and_convert_dialogs
 
 np.random.seed(0)

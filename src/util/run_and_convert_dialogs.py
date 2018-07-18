@@ -67,13 +67,14 @@ def run_dialogs(args, num_dialogs):
 
             agent_action = muf_simulator.exchange(socket, phone_id, user_utterance, start, send_to_surf=True)
             agent_action = parse_agent_action(agent_action)
-
+            print("AGENT: ", utt)
             state, dialog_over, full_dialog = args.state_tracker.step(agent_action=agent_action)
 
             user_action_dict = args.user_sim.next(state, agent_action)
             user_action = user_action_dict[config.ACTION_STR]
             state, dialog_over, full_dialog = args.state_tracker.step(user_action=user_action)
             user_utterance = utter_gen.process_utterance(state, utter_gen.get_user_utterance(user_action_dict))
+            print("USER: ", user_utterance)
             counter += 1
 
 

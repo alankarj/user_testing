@@ -45,11 +45,13 @@ def exchange(socket, phone_id, utterance, start, send_to_surf=True):
     splitting = re.split("\\\\\"", message[2].decode('utf-8'), maxsplit=3, flags=0)
     output = splitting[1]
 
-    if send_to_surf:
-        utt = run_and_convert_dialogs.parse_agent_action(output)[4]
-        SURFClient.sendMessage("MSG_NLG", utt)
-        num_of_char = len(utt)
-        sleep(num_of_char * 0.1)  # 50 msec per char
+    utt = run_and_convert_dialogs.parse_agent_action(output)[4]
+
+    utt = utt.replace("\\u0027", "'")
+    utt = utt.replace("\\", "")
+    SURFClient.sendMessage("MSG_NLG", utt)
+    numOfChar = len(utt)
+    sleep(numOfChar * 0.1)  # 50 msec per char
 
     return output
 

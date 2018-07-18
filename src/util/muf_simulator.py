@@ -71,6 +71,7 @@ def setup(socket, phone_id, muf_address):
     message = socket.recv_multipart()
     return message
 
+
 def simulation(phone_id, ip_address):
     muf_address = "tcp://" + ip_address + ":5555"
     socket = context.socket(zmq.REQ)

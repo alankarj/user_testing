@@ -5,6 +5,7 @@ import os
 import json
 from src import config
 from src.util import nlg_db_reader, utterance_generator
+from src.util import muf_simulator
 
 
 def run_dialogs(args, num_dialogs):
@@ -46,10 +47,11 @@ def run_dialogs(args, num_dialogs):
             nlg_options=nlg_options
         )
 
+        user_utterance = b'{\"messageId\":\"MSG_START_INTERACTION\",\"payload\":\"\",\"requestType\":\"\",\"sessionId\":\"\"}'
+        muf_simulator.simulation("128.237.207.193")
+
         while not dialog_over:
-            agent_action_dict = args.agent.next(state)
-            agent_action_dict_list.append(agent_action_dict)
-            agent_action = agent_action_dict[config.ACTION_STR]
+            agent_action = muf_simulator.exchange(user_utterance)
             state, dialog_over, full_dialog = args.state_tracker.step(agent_action=agent_action)
 
             user_action_dict = args.user_sim.next(state, agent_action)

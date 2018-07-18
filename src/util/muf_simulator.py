@@ -46,6 +46,8 @@ def exchange(socket, phone_id, utterance, start):
 
     utt = run_and_convert_dialogs.parse_agent_action(output)[4]
 
+    utt = utt.replace("\\u0027", "'")
+    utt = utt.replace("\\", "")
     SURFClient.sendMessage("MSG_NLG", utt)
     numOfChar = len(utt)
     sleep(numOfChar * 0.1)  # 50 msec per char

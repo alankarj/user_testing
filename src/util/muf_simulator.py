@@ -36,7 +36,7 @@ def exchange(socket, phone_id, utterance, start):
             if 'utterance' in payloadjson.keys():
                 SURFClient.sendMessage("MSG_ASR", payloadjson['utterance'])
                 numOfChar = len(payloadjson['utterance'])
-                sleep(numOfChar * 0.05) # 50 msec per char
+                sleep(numOfChar * 0.1) # 50 msec per char
 
     socket.send_multipart([C_CLIENT, bytes(phone_id, encoding='utf-8'), request])
 
@@ -48,7 +48,7 @@ def exchange(socket, phone_id, utterance, start):
 
     SURFClient.sendMessage("MSG_NLG", utt)
     numOfChar = len(utt)
-    sleep(numOfChar * 0.05)  # 50 msec per char
+    sleep(numOfChar * 0.1)  # 50 msec per char
 
     return output
 

@@ -65,7 +65,7 @@ def run_dialogs(args, num_dialogs):
             else:
                 start = 0
 
-            agent_action = muf_simulator.exchange(socket, phone_id, user_utterance, start, send_to_surf=False)
+            agent_action = muf_simulator.exchange(socket, phone_id, user_utterance, start, send_to_surf=True)
             agent_action = parse_agent_action(agent_action)
 
             state, dialog_over, full_dialog = args.state_tracker.step(agent_action=agent_action)

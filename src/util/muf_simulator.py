@@ -53,7 +53,7 @@ def exchange(socket, phone_id, utterance, start, send_to_surf=True):
     numOfChar = len(utt)
     sleep(numOfChar * 0.1)  # 50 msec per char
 
-    return output
+    return output, utt
 
 
 def send_receive_message(socket, phone_id, request):

@@ -19,7 +19,7 @@ def request_bytes(utterance):
     return bytes('{\"messageId\":\"MSG_ASR\",\"payload\":\"{\\"utterance\\":\\"' + utterance + '\\",\\"confidence\\":1.0}\",\"requestType\":\"\",\"sessionId\":\"\"}', encoding='utf-8')
 
 
-def exchange(socket, phone_id, utterance, start):
+def exchange(socket, phone_id, utterance, start, send_to_surf=True):
     if start is 1:
         request = bytes(utterance, encoding='utf-8')
     else:
@@ -28,15 +28,16 @@ def exchange(socket, phone_id, utterance, start):
     '''
     send to SURF
     '''
-    import json
-    requestjson = json.loads(request.decode("utf-8"))
-    if 'payload' in requestjson.keys():
-        if len(requestjson['payload']) > 0:
-            payloadjson = json.loads(requestjson['payload'])
-            if 'utterance' in payloadjson.keys():
-                SURFClient.sendMessage("MSG_ASR", payloadjson['utterance'])
-                numOfChar = len(payloadjson['utterance'])
-                sleep(numOfChar * 0.1) # 50 msec per char
+    if send_to_surf:
+        import json
+        requestjson = json.loads(request.decode("utf-8"))
+        if 'payload' in requestjson.keys():
+            if len(requestjson['payload']) > 0:
+                payloadjson = json.loads(requestjson['payload'])
+                if 'utterance' in payloadjson.keys():
+                    SURFClient.sendMessage("MSG_ASR", payloadjson['utterance'])
+                    num_of_char = len(payloadjson['utterance'])
+                    sleep(num_of_char * 0.1) # 50 msec per char
 
     socket.send_multipart([C_CLIENT, bytes(phone_id, encoding='utf-8'), request])
 

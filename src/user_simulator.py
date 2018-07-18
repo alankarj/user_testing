@@ -82,7 +82,6 @@ class UserSimulator:
         """
         task_state = state[config.TASK_STATE_STR]
         agent_action_key = agent_action[config.TS_STR_INDEX_AGENT:config.SLOT_VALUE_INDEX_AGENT]
-        print(agent_action_key)
         assert agent_action_key in self.reasoner
         ts_list = list(self.reasoner[agent_action_key].keys())
 

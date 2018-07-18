@@ -68,30 +68,6 @@ class UserSimulator:
         :param agent_action: 5-tuple containing ts_string_ack, ack_cs, ts_string_other, other_cs, value
         :return: user_action: 3-tuple containing ts_string, cs, value
         """
-        agent_action = agent_action.split(',')
-        print(agent_action)
-        for aa in agent_action:
-            aa = aa.strip("()")
-        if agent_action[1] == 'ASN':
-            agent_action[1] = 'NONE'
-        if agent_action[3] == 'ASN':
-            agent_action[3] = 'NONE'
-        if agent_action[2] == 'request(why)':
-            agent_action[2] = 'request(reason_not_like)'
-        if agent_action[2] == 'request(another)':
-            agent_action[2] = 'request(another_one)'
-        if agent_action[2] == 'inform(plot)':
-            agent_action[2] = 'inform(movie_info)'
-        if agent_action[2] in ['request(genre)', 'request(actor)', 'request(director)', 'inform(movie)', 'request(reason_not_like)']:
-            agent_action[3] = 'QESD'
-        if agent_action[2] in ['inform(actor)', 'inform(genre)', 'inform(movie_info)', 'request(feedback)']:
-            agent_action[3] = 'NONE'
-        agent_action = tuple(agent_action)
-        print(agent_action)
-        if len(agent_action) != config.AGENT_ACTION_DIM:
-            raise ValueError("Size of agent_action: %d does not match expected size: %d."
-                             % (len(agent_action), config.AGENT_ACTION_DIM))
-
         user_ts_string, value = self.task_reasoner(state, agent_action)
         cs_list = self.reasoner[agent_action[config.TS_STR_INDEX_AGENT:config.SLOT_VALUE_INDEX_AGENT]][user_ts_string]
         cs = self.social_reasoner(cs_list)

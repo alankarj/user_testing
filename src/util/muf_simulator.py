@@ -78,8 +78,12 @@ def turn_exchange_manual(socket, phoneID, utterance):
     socket.close()
     return message
 
-def exchange(socket, phoneID, utterance):
-    request = request_bytes(utterance)
+def exchange(socket, phoneID, utterance, start):
+    if start is 1:
+        request = bytes(utterance, encoding='utf-8')
+    else:
+        request = request_bytes(utterance)
+    print("request ", request)
     socket.send_multipart([C_CLIENT, bytes(phoneID, encoding='utf-8'), request])
 
     message = socket.recv_multipart()
@@ -101,12 +105,15 @@ def setup(socket, phoneID):
 
     # connect to server
     socket.connect(mufAddress)
+    print("connected socket")
 
     # send initial request and receive reply
     request = bytes("{\"requestType\":\"REQUEST_CONNECT\",\"sessionId\":\"" + phoneID + "\",\"url\":\"" + mufAddress + "\",\"payload\":\"\"}", encoding='utf-8')
     socket.send_multipart([C_CLIENT, b'session-manager', request])
+    print("sent REQUEST_CONNECT")
     message = socket.recv_multipart()
     # print("connected ", time.time())
+    print("connected ", time.time())
     # print(message)
 
     # start conversation
@@ -116,7 +123,7 @@ def setup(socket, phoneID):
     # splitting = re.split("\\\\\"", message[2].decode("utf-8"), maxsplit=3, flags=0)
     # output = splitting[1]
     # print("interaction started ", time.time())
-    return output
+    return message
 
 def simulation(ip):
     ipAddress = ip
@@ -135,3 +142,11 @@ if __name__ == '__main__':
 
     # run simulation
     simulation()
+
+def simulation(id, ip):
+    print("simulation")
+    mufAddress = "tcp://" + ip + ":5555"
+    socket1 = context.socket(zmq.REQ)
+    phoneID = id
+    setup(socket1, phoneID)
+    return socket1

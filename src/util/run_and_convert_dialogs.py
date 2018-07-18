@@ -47,11 +47,21 @@ def run_dialogs(args, num_dialogs):
             nlg_options=nlg_options
         )
 
-        user_utterance = b'{\"messageId\":\"MSG_START_INTERACTION\",\"payload\":\"\",\"requestType\":\"\",\"sessionId\":\"\"}'
-        muf_simulator.simulation("128.237.207.193")
+        user_utterance = '{\"messageId\":\"MSG_START_INTERACTION\",\"payload\":\"\",\"requestType\":\"\",\"sessionId\":\"\"}'
+        phone_id = "0123456789abcdef"
+        ip_address = "128.237.207.193"
+        socket = muf_simulator.simulation(phone_id, ip_address)
+        print("MUF simulator called.")
 
+        counter = 0
         while not dialog_over:
-            agent_action = muf_simulator.exchange(user_utterance)
+            if counter == 0:
+                start = 1
+            else:
+                start = 0
+            agent_action = muf_simulator.exchange(socket, phone_id, user_utterance, start)
+            if agent_action == 'startTime':
+                break
             state, dialog_over, full_dialog = args.state_tracker.step(agent_action=agent_action)
 
             user_action_dict = args.user_sim.next(state, agent_action)
@@ -59,3 +69,5 @@ def run_dialogs(args, num_dialogs):
             user_action = user_action_dict[config.ACTION_STR]
             user_utterance = utter_gen.process_utterance(state, utter_gen.get_user_utterance(user_action_dict))
             state, dialog_over, full_dialog = args.state_tracker.step(user_action=user_action)
+            counter += 1
+

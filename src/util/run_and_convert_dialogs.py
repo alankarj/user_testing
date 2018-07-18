@@ -77,8 +77,7 @@ def parse_agent_action(agent_action):
     if len(agent_action) != config.AGENT_ACTION_DIM:
         raise ValueError("Size of agent_action: %d does not match expected size: %d."
                          % (len(agent_action), config.AGENT_ACTION_DIM))
-
-    agent_action = [aa.strip("( )") for aa in agent_action]
+    agent_action[4] = agent_action[4].strip(')')
 
     agent_action[1] = map_cs(agent_action[1])
     agent_action[3] = map_cs(agent_action[3])

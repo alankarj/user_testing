@@ -10,6 +10,7 @@ import time
 import unicodedata
 import sys
 import re
+from time import sleep
 
 from threading import Thread
 
@@ -18,6 +19,14 @@ context = zmq.Context()
 # set ip address in main method
 mufAddress = "tcp://localhost:5555"
 ipAddress = "localhost"
+
+#SURF client
+import src.util.surf.SURFClient as SURFClient
+import threading
+SURFClient.subscribe("MSG_NLG")
+t = threading.Thread(target=SURFClient.clientThread)
+t.start()
+
 
 def request_bytes(utterance):
     return bytes('{\"messageId\":\"MSG_ASR\",\"payload\":\"{\\"utterance\\":\\"' + utterance + '\\",\\"confidence\\":1.0}\",\"requestType\":\"\",\"sessionId\":\"\"}', encoding='utf-8')
@@ -84,11 +93,28 @@ def exchange(socket, phoneID, utterance, start):
     else:
         request = request_bytes(utterance)
     print("request ", request)
+
+    '''
+    send to SURF
+    '''
+    import json
+    requestjson = json.loads(request.decode("utf-8"))
+    if 'payload' in requestjson.keys():
+        if len(requestjson['payload']) > 0:
+            payloadjson = json.loads(requestjson['payload'])
+            if 'utterance' in payloadjson.keys():
+                SURFClient.sendMessage("MSG_ASR", payloadjson['utterance'])
+                numOfChar = len(payloadjson['utterance'])
+                sleep(numOfChar * 0.05) # 50 msec per char
+
     socket.send_multipart([C_CLIENT, bytes(phoneID, encoding='utf-8'), request])
 
     message = socket.recv_multipart()
     splitting = re.split("\\\\\"", message[2].decode("utf-8"), maxsplit=3, flags=0)
     output = splitting[1]
+
+    SURFClient.sendMessage("MSG_NLG", output)
+    print(output)
 
     return output
 
@@ -107,7 +133,7 @@ def setup(socket, phoneID):
     socket.connect(mufAddress)
     print("connected socket")
 
-    # send initial request and receive reply
+    # send initial request and receive replys
     request = bytes("{\"requestType\":\"REQUEST_CONNECT\",\"sessionId\":\"" + phoneID + "\",\"url\":\"" + mufAddress + "\",\"payload\":\"\"}", encoding='utf-8')
     socket.send_multipart([C_CLIENT, b'session-manager', request])
     print("sent REQUEST_CONNECT")
@@ -130,7 +156,7 @@ def simulation(ip):
     mufAddress = "tcp://" + ipAddress + ":5555"
     socket1 = context.socket(zmq.REQ)
     phonepi = "3141592653589793"
-    setup(socket, phoneID)
+    setup(socket1, phonepi)
 
 if __name__ == '__main__':
 

@@ -9,6 +9,13 @@ from src.util import muf_simulator
 
 
 def run_dialogs(args, num_dialogs):
+    # SURF client
+    import src.util.surf.SURFClient as SURFClient
+    import threading
+    SURFClient.subscribe("MSG_NLG")
+    t = threading.Thread(target=SURFClient.clientThread)
+    t.start()
+
     """
     :param args: All the parser (command line) arguments.
     :param num_dialogs: Number of dialogs to run.
@@ -60,6 +67,7 @@ def run_dialogs(args, num_dialogs):
             else:
                 start = 0
             agent_action = muf_simulator.exchange(socket, phone_id, user_utterance, start)
+
             if agent_action == 'startTime':
                 break
             state, dialog_over, full_dialog = args.state_tracker.step(agent_action=agent_action)
